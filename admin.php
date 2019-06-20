@@ -46,21 +46,29 @@
 		} 
         mysqli_select_db($con,'harshi');
         $date = $_POST["date"];
-		$select = "select * from lminus as A left join (select * from details where wdate='$date') as B on A.codeplus1=B.codeLplus1 and A.codeminus1=B.codeminus order by A.codeplus1, A.codeminus1";
+		$select = "select * from lminus as A left join (select * from details where wdate='$date') as B on A.codeplus1=B.codeLplus1 and A.codeminus1=B.codeminus left join user on user.username = codeplus1 order by A.codeplus1, A.codeminus1";
 		$status = mysqli_query($con,$select);
 		if(!$status){
 		    die("Unable to load data.".mysqli_error($con));
         }
         $d = date("l, F d, Y", strtotime($date));
         echo "<table><tr><th>Code</th><th>L+1/data given by</th><th>Name</th><th>DomainFunction</th><th>Dept</th><th>Project</th><th>".$d."</th></tr>";
+        $rowCount = 0; 
         while($row = mysqli_fetch_array($status,MYSQLI_NUM)){
+            $rowCount++;
             echo "<tr><td>".$row[0]."</td>";
-            echo "<td>".$row[1]."</td>";
+            echo "<td>".$row[14]."</td>";
             echo "<td>".$row[2]."</td>";
-            echo "<td>".$row[8]."</td>";
+            echo "<td>".$row[3]."</td>";
+            echo "<td>".$row[4]."</td>";
             echo "<td>".$row[9]."</td>";
-            echo "<td>".$row[10]."</td>";
-            echo "<td>".$row[12]."</td></tr>"; 
+            
+            if($row[11]==""){
+                echo "<td style='background-color:red;'>".$row[11]."</td></tr>"; 
+            }
+            else{
+                echo "<td>".$row[11]."</td></tr>"; 
+            }
         }
         echo "</table>";
     }

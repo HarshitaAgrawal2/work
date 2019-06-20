@@ -24,6 +24,10 @@
 		<input type="text" name="codem" placeholder="Enter code of L-1">
 		<label >Name</label> 
 		<input type="text" name="namem" placeholder="Enter name of L-1">
+        <label >Domain Function</label> 
+		<input type="text" name="domain" placeholder="eg: RETAIL, TECH">
+        <label >Department</label> 
+		<input type="text" name="dept" placeholder="eg: BU2">
         <label >Code of his L+1</label> 
 		<input type="text" name="code" placeholder="Enter code of L+1">
         <input type="submit" name="submitm"> <hr>
@@ -60,7 +64,9 @@
         $cod = $_POST["code"];
         $code = $_POST["codem"];
         $name = $_POST["namem"];
-        $sql = "INSERT INTO lminus(codeplus1, codeminus1, nameMinus1) VALUES ('$cod', '$code', '$name')";
+        $domain = $_POST["domain"];
+        $dept = $_POST["dept"];
+        $sql = "INSERT INTO lminus(codeplus1, codeminus1, nameMinus1, domain, dept) VALUES ('$cod', '$code', '$name', '$domain', '$dept')";
 		$status = mysqli_query($con, $sql);
 		if(!$status){
 		 	die(mysqli_error($con));
@@ -86,10 +92,12 @@
 		if(!$status){
 		    die("Unable to load data.".mysqli_error($con));
         }
-        echo "<table><tr><th>Code</th><th>Name of L-1</th><th>L+1</th></tr>";
+        echo "<table><tr><th>Code</th><th>Name of L-1</th><th>DomainFunction</th><th>Dept</th><th>L+1</th></tr>";
         while($row = mysqli_fetch_array($status,MYSQLI_NUM)) {
             echo "<tr><td>".$row[1]."</td>" ;
             echo "<td>".$row[2]."</td>" ;
+            echo "<td>".$row[3]."</td>" ;
+            echo "<td>".$row[4]."</td>" ;
             echo "<td>".$row[0]."</td></tr>" ; 
         }
         echo "</table>";
