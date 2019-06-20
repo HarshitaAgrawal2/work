@@ -35,10 +35,10 @@
 <html>
 <head>
 	<title>Scheduler</title>
-	<link type="text/css" rel="stylesheet" href="media/main.css" />
+	<link type="text/css" rel="stylesheet" href="main.css" />
 </head>
 <body>
-    <div id="home"><a href="admin.php">Log in as admin</a></div>
+    <div id="home"><a href="admin.php">Want to log in as admin?</a></div>
 	<form method="post">
 		<h1>User login</h1> 
 		<label>Code</label> 

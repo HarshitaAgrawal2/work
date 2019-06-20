@@ -10,7 +10,7 @@
 <html>
 <head>
 	<title>Project</title>
-	<link type="text/css" rel="stylesheet" href="media/main.css" />
+	<link type="text/css" rel="stylesheet" href="main.css" />
 </head>
 <style>
     form{
@@ -20,16 +20,19 @@
 </style>
 <body>	
     <div id="home"><a href="index.php">Go to Home</a></div>
-    <div id="home"><a href="entry.php">Add L+1/L-1</a></div>
     <form method="post" style="border:2px solid white; padding:0px">
-        <input type="submit" name="logout" value="Logout">
-	</form> 
+        <div class="user">   
+            <span>You are logged in as: <?php echo $_SESSION['admin'];?></span> 
+            <input type="submit" name="logout" value="Logout"> 
+        </div>
+	</form> <br><br><br>
 	<form method="post" >
+    <a href="entry.php">Add L+1/L-1</a>
     <h2>Get Details</h2>
         <label >Date</label> 
         <input type="date" name="date">
         <input type="submit" name="show_details">
-	</form> 
+	</form> <br>
 </body>
 </html>
 <?php
@@ -48,10 +51,15 @@
 		if(!$status){
 		    die("Unable to load data.".mysqli_error($con));
         }
-        echo "<table><tr><td>L+1 Code</td><td>L-1 Code</td><td>Utilization(in percentage)</td></tr>";
+        $d = date("l, F d, Y", strtotime($date));
+        echo "<table><tr><th>Code</th><th>L+1/data given by</th><th>Name</th><th>DomainFunction</th><th>Dept</th><th>Project</th><th>".$d."</th></tr>";
         while($row = mysqli_fetch_array($status,MYSQLI_NUM)){
             echo "<tr><td>".$row[0]."</td>";
             echo "<td>".$row[1]."</td>";
+            echo "<td>".$row[2]."</td>";
+            echo "<td>".$row[8]."</td>";
+            echo "<td>".$row[9]."</td>";
+            echo "<td>".$row[10]."</td>";
             echo "<td>".$row[12]."</td></tr>"; 
         }
         echo "</table>";

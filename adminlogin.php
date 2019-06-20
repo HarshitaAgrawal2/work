@@ -33,7 +33,7 @@
 <html>
 <head>
 	<title>Scheduler</title>
-	<link type="text/css" rel="stylesheet" href="media/main.css" />
+	<link type="text/css" rel="stylesheet" href="main.css" />
 </head>
 <body>
     <div id="back"><a href="index.php">Go to Home</a></div>

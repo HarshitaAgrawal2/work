@@ -1,0 +1,46 @@
+label{
+    display: block;
+}
+input[type="text"], input[type="number"], input[type="date"], input[type="password"] {
+    display: block;
+    width:100%;
+    margin-bottom: 10px;
+}
+form{
+    width:50%;
+    margin-left:25%;
+}
+#error_msg{
+	color: red;
+    font-size: larger;
+    float:right;
+}
+table, td, th{
+    border: 2px solid black;
+    border-collapse: collapse;
+    margin-left: 25%;
+}
+.user{
+    float: right;
+    background-color: aquamarine;
+}
+#rem{
+    background-color: red;
+    float: right;
+}
+#done{
+    background-color:greenyellow;
+    float: left;
+    margin-left: 0%;
+}
+th{
+    background-color: gold;
+}
+caption{
+    color: chocolate;
+    font-size: 30px;
+}
+hr{
+    border-color:rgb(141, 34, 241);
+    width:100%;
+}

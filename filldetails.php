@@ -20,36 +20,38 @@
     if(!$status){
         die("Unable to load data.".mysqli_error($con));
     }
-    echo "Done:</br>";
+    echo "<table id='done'><caption>Done</caption><tr><th>Code</th><th>Name</th><th>Utilization</th></tr>";
     while($row = mysqli_fetch_array($status,MYSQLI_NUM)){
-        echo "<br>Code:".$row[0];
-        echo "<br>Name:".$row[1];
-        echo "<br>Utilzation:".$row[2];
+        echo "<tr><td>".$row[0]."</td>";
+        echo "<td>".$row[1]."</td>";
+        echo "<td>".$row[2]."</td></tr>";
     }   
+    echo "</table>";
     $select = "select codeminus1, nameMinus1 from lminus where codeplus1 = '$codeplus' and codeminus1 NOT IN (select codeminus from details where wdate = '$date' and codeLplus1 = '$codeplus')";
     $status = mysqli_query($con,$select);
     if(!$status){
         die("Unable to load data.".mysqli_error($con));
     }
-    echo "<br><br>Remaining:</br>";
+    echo "<table id='rem'><caption>Remaining</caption><tr><th>Code</th><th>Name</th></tr>";
     while($row = mysqli_fetch_array($status,MYSQLI_NUM)){
-        echo "<br>Code:".$row[0];
-        echo "<br>Name:".$row[1];
-        
+        echo "<tr><td>".$row[0]."</td>";
+        echo "<td>".$row[1]."</td></tr>";
     }   
+    echo "</table>";
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Project</title>
-	<link type="text/css" rel="stylesheet" href="media/main.css" />
+	<link type="text/css" rel="stylesheet" href="main.css" />
 </head>
 <body>	
-    <div id="home"><a href="admin.php">Go to Admin page</a></div>
-	
 	<form method="post">
-		<input type="submit" name="logout" value="Logout">
-		<h1>Fill Details:</h1>
+        <div class="user">
+            <span>You are logged in as: <?php echo $_SESSION['user'];?></span> 
+            <input type="submit" name="logout" value="Logout"> 
+        </div> <hr>
+        <h1>Fill Details:</h1>
         <label >Code</label> 
 		<input type="text" name="code" placeholder="Enter code of L-1">
 		<label >Name</label> 
@@ -68,8 +70,9 @@
         </datalist>
         <label>Utilization</label>
         <input type="number" name="utilization" min="0" max="100" placeholder="eg: 50">
-        <input type="submit" name="submit">
-	</form> 
+        <input type="submit" name="submit"><hr>
+    </form> 
+    
 </body>
 </html>
 <?php

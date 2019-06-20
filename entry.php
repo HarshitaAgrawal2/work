@@ -2,12 +2,15 @@
 <html>
 <head>
 	<title>Project</title>
-	<link type="text/css" rel="stylesheet" href="media/main.css" />
+	<link type="text/css" rel="stylesheet" href="main.css" />
 </head>
 <body>	
     <div id="home"><a href="admin.php">Back to Admin Home page</a></div>
 	<form method="post">
-		<input type="submit" name="logout" value="Logout">
+        <div class="user">   
+            <span>You are logged in as: <?php session_start(); echo $_SESSION['admin'];?></span> 
+            <input type="submit" name="logout" value="Logout"> 
+        </div>
 		<h1>Add L+1:</h1>
         <label >Code</label> 
 		<input type="text" name="codep" placeholder="Enter code of L+1">
@@ -15,7 +18,7 @@
 		<input type="text" name="name" placeholder="Enter name of L+1">
 		<label>Password</label>
 		<input type="password" name="password"  placeholder="Set password for L+1"> 
-        <input type="submit" name="submit">
+        <input type="submit" name="submit"> <hr>
         <h1>Add L-1:</h1>
         <label >Code</label> 
 		<input type="text" name="codem" placeholder="Enter code of L-1">
@@ -23,10 +26,10 @@
 		<input type="text" name="namem" placeholder="Enter name of L-1">
         <label >Code of his L+1</label> 
 		<input type="text" name="code" placeholder="Enter code of L+1">
-        <input type="submit" name="submitm">
+        <input type="submit" name="submitm"> <hr>
         <input type="submit" name="show_plus" value="Show ALL L+1">
-        <input type="submit" name="show_minus" value="Show ALL L-1">
-	</form> 
+        <input type="submit" name="show_minus" value="Show ALL L-1"> 
+	</form>  <br>
 </body>
 </html>
 <?php
@@ -70,7 +73,7 @@
 		if(!$status){
 		    die("Unable to load data.".mysqli_error($con));
         }
-        echo "<table><tr><td>Code of L+1</td><td>Name of L+1</td></tr>";
+        echo "<table><tr><th>Code</th><th>Name of L+1</th></tr>";
         while($row = mysqli_fetch_array($status,MYSQLI_NUM)) {
             echo "<tr><td>".$row[0]."</td>" ;
             echo "<td>".$row[2]."</td></tr>" ; 
@@ -83,11 +86,11 @@
 		if(!$status){
 		    die("Unable to load data.".mysqli_error($con));
         }
-        echo "<table><tr><td>Code of L+1</td><td>Code of L-1</td><td>Name of L+1</td></tr>";
+        echo "<table><tr><th>Code</th><th>Name of L-1</th><th>L+1</th></tr>";
         while($row = mysqli_fetch_array($status,MYSQLI_NUM)) {
-            echo "<tr><td>".$row[0]."</td>" ;
-            echo "<td>".$row[1]."</td>" ;
-            echo "<td>".$row[2]."</td></tr>" ; 
+            echo "<tr><td>".$row[1]."</td>" ;
+            echo "<td>".$row[2]."</td>" ;
+            echo "<td>".$row[0]."</td></tr>" ; 
         }
         echo "</table>";
     }

@@ -10,13 +10,16 @@
 <html>
 <head>
 	<title>Project</title>
-	<link type="text/css" rel="stylesheet" href="media/main.css" />
+	<link type="text/css" rel="stylesheet" href="main.css" />
 </head>
 <body>	
-    <div id="home"><a href="admin.php">Go to Admin page</a></div>
+    <!--<div id="home"><a href="admin.php">Go to Admin page</a></div>-->
 	
 	<form method="post">
-		<input type="submit" name="logout" value="Logout">
+        <div class="user">   
+            <span>You are logged in as: <?php echo $_SESSION['user'];?></span> 
+            <input type="submit" name="logout" value="Logout"> 
+        </div><br>
 		<h1>Enter current week Monday's date:</h1>
         <label >Date</label> 
         <input type="date" name="date">
