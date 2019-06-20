@@ -29,8 +29,10 @@
 	<form method="post" >
     <a href="entry.php">Add L+1/L-1</a>
     <h2>Get Details</h2>
-        <label >Date</label> 
+        <label >Date (From)</label> 
         <input type="date" name="date">
+        <label >Date (To)</label> 
+        <input type="date" name="todate">
         <input type="submit" name="show_details">
 	</form> <br>
 </body>
@@ -46,6 +48,7 @@
 		} 
         mysqli_select_db($con,'harshi');
         $date = $_POST["date"];
+        $date = $_POST["todate"];
 		$select = "select * from lminus as A left join (select * from details where wdate='$date') as B on A.codeplus1=B.codeLplus1 and A.codeminus1=B.codeminus left join user on user.username = codeplus1 order by A.codeplus1, A.codeminus1";
 		$status = mysqli_query($con,$select);
 		if(!$status){
