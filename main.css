@@ -17,8 +17,11 @@ form{
 }
 table, td, th{
     border: 2px solid black;
-    border-collapse: collapse;
-    margin-left: 25%;
+    border-collapse: collapse;   
+}
+table{
+    display:inline;
+    border: 0px solid black;
 }
 .user{
     float: right;
@@ -37,7 +40,7 @@ th{
     background-color: gold;
 }
 caption{
-    color: chocolate;
+    color:black;
     font-size: 30px;
 }
 hr{
