@@ -19,15 +19,22 @@
     }
 </style>
 <body>	
-    <div id="home"><a href="index.php">Go to Home</a></div>
-    <form method="post" style="border:2px solid white; padding:0px">
+
+    <ul>
+        <li class="li"><a class="active" href="admin.php">Admin Home</a></li>
+        <li class="li"><a href="index.php">User Login</a></li>
+        <li class="li" style="float:right"><a href="logout.php">Logout</a></li>
+        <li class="li" style="float:right"><a ><span>You are logged in as: <?php echo $_SESSION['admin'];?></span> </a></li>
+        <li class="li"><a href="entry.php">Add User</a></li>
+    </ul>
+    <!--<div id="home"><a href="index.php">Go to Home</a></div>-->
+    <!--<form method="post" style="border:2px solid white; padding:0px">
         <div class="user">   
             <span>You are logged in as: <?php echo $_SESSION['admin'];?></span> 
             <input type="submit" name="logout" value="Logout"> 
         </div>
-	</form> <br><br><br>
+	</form>--> <br><br><br>
 	<form method="post" >
-    <a href="entry.php">Add L+1/L-1</a>
     <h2>Get Details</h2>
         <label >Date (From)</label> 
         <input type="date" name="date" value="<?php echo isset($_POST['date']) ? $_POST['date'] : '' ?>">
@@ -122,8 +129,5 @@
         }
         echo "</table>";
     }
-    if (isset($_POST["logout"])) {
-        session_destroy();
-        header("Location:adminlogin.php");
-    }
+    
 ?>

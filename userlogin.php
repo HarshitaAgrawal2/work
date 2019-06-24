@@ -38,14 +38,19 @@
 	<link type="text/css" rel="stylesheet" href="main.css" />
 </head>
 <body>
-    <div id="home"><a href="admin.php">Want to log in as admin?</a></div>
-	<form method="post">
-		<h1>User login</h1> 
-		<label>Code</label> 
-		<input type="text" name="username" placeholder="Enter your code">
-		<label>Password</label>
-		<input type="password" name="password"> 
-		<input type="submit" name="loginSubmit" value="Log in">
+
+	<ul>
+		<li class="li"><a class="active" href="index.php">User Login</a></li>
+		<li class="li"><a  href="admin.php">Admin Login</a></li>
+	</ul> 
+	<br><br><br><br>
+	<form method="post" id="loginform">
+		<p id="loginHeading">User login</p> 
+		<label class="inputlabel">Code</label> 
+		<input type="text" name="username"  placeholder="Type your code" class="inputfield">
+		<label class="inputlabel">Password</label>
+		<input type="password" name="password"  placeholder="Type your password" class="inputfield"> 
+		<input type="submit" name="loginSubmit" value="Log in" id="loginbtn">
 		<div id="error_msg"><?php echo $msg ; ?></div>
 	</form>
 </body>

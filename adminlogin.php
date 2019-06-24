@@ -36,14 +36,20 @@
 	<link type="text/css" rel="stylesheet" href="main.css" />
 </head>
 <body>
-    <div id="back"><a href="index.php">Go to Home</a></div>
-	<form method="post">
-		<h1>Admin login</h1> <br>
-		<label>Username</label> 
-		<input type="text" name="username" placeholder="Enter your code">
-		<label>Password</label>
-		<input type="password" name="password"> 
-		<input type="submit" name="loginSubmit" value="Log in">
+
+	<ul>
+		<li class="li"><a  href="index.php">User Login</a></li>
+		<li class="li"><a  class="active" href="admin.php">Admin Login</a></li>
+	</ul> 
+	<br><br><br><br>
+    
+	<form method="post" id="loginform">
+		<p id="loginHeading">Admin login</p> <br>
+		<label class="inputlabel">Username</label> 
+		<input type="text" name="username" placeholder="Type your code" class="inputfield">
+		<label class="inputlabel">Password</label>
+		<input type="password" name="password" class="inputfield" placeholder="Type your password"> 
+		<input type="submit" name="loginSubmit" value="Login" id="loginbtn">
 		<div id="error_msg"><?php echo $msg ; ?></div>
 	</form>
 </body>

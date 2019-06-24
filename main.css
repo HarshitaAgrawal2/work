@@ -29,7 +29,6 @@ table{
 }
 #rem{
     background-color: red;
-    float: right;
 }
 #done{
     background-color:greenyellow;
@@ -47,3 +46,110 @@ hr{
     border-color:rgb(141, 34, 241);
     width:100%;
 }
+#loginbtn{
+    width: 100%;
+    border-radius: 200px;
+    border: none;
+    background-color: teal;
+    padding: 1%;
+    font-size: 25px;
+    color: white;
+    font-weight: bold;
+    margin-top: 40px;
+}
+#loginform{
+    border: none;
+    width: 40%;
+    background-color: ghostwhite;
+    border-radius: 50px;
+    padding: 10px 4% 20px 4%;
+    border:1px solid rgb(0, 174, 255);
+}
+#loginHeading{
+    font-family: sans-serif;
+    color: palevioletred;
+    font-weight: 900;
+    text-align: center;
+    font-size:36px;
+}
+.inputlabel{
+    font-family: sans-serif;
+    color: palevioletred;
+    font-size: large;
+    font-weight: initial;
+    margin-top: 30px;
+}
+.inputfield{
+    border: none;
+    border-bottom: 2px solid teal;
+    margin-top: 10px;
+    font-size: large;
+    background-color: transparent;
+    color:teal;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    top:0;
+    width: 100%;
+} 
+.li {
+    float: left;
+} 
+.li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+} 
+.li a:hover:not(.active) {
+    background-color: #11fff1;
+}
+.active {
+    background-color: #fCA750;
+}
+body {
+    margin:0;
+    font-family: sans-serif;
+}
+input[type="text"]:hover , input[type="password"]:hover, input[type="date"]:hover, input[type="number"]:hover{
+    border-color: #fCA750;
+}
+ol {
+    display: inline;
+    list-style-type: none;    
+}
+#filldetailsform{
+    background-color: yellowgreen;
+}
+#filldetailsform form{
+    width: 90%;
+    margin-left: 0;
+    margin:10px;
+}
+* {
+    box-sizing: border-box;
+}
+.col {
+    float: left;
+    width: 31%;
+    padding: 0px;
+    height: 300px; 
+    margin:10px;
+  }
+  .col table{
+      display: block;
+      width:100%;
+  }
+  .col table th, .col table td{
+    width: 100%;
+  }
+  .col table caption{
+      background-color: white;
+      border:1px solid black;
+  }

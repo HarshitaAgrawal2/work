@@ -5,12 +5,20 @@
 	<link type="text/css" rel="stylesheet" href="main.css" />
 </head>
 <body>	
-    <div id="home"><a href="admin.php">Back to Admin Home page</a></div>
+
+    <ul>
+        <li class="li"><a href="admin.php">Admin Home</a></li>
+        <li class="li"><a href="index.php">User Login</a></li>
+        <li class="li"><a class="active" href="entry.php">Add User</a></li>
+        <li class="li" style="float:right"><a href="logout.php">Logout</a></li>
+        <li class="li" style="float:right"><a ><span>You are logged in as: <?php session_start(); echo $_SESSION['admin'];?></span> </a></li>
+    </ul>
+    <!--<div id="home"><a href="admin.php">Back to Admin Home page</a></div>-->
 	<form method="post">
-        <div class="user">   
+        <!--<div class="user">   
             <span>You are logged in as: <?php session_start(); echo $_SESSION['admin'];?></span> 
             <input type="submit" name="logout" value="Logout"> 
-        </div>
+        </div>--><br><br><br>
 		<h1>Add L+1:</h1>
         <label >Code</label> 
 		<input type="text" name="codep" placeholder="Enter code of L+1">

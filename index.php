@@ -13,13 +13,15 @@
 	<link type="text/css" rel="stylesheet" href="main.css" />
 </head>
 <body>	
+
     <!--<div id="home"><a href="admin.php">Go to Admin page</a></div>-->
-	
+    <ul>
+        <li class="li"><a class="active" href="index.php">Home</a></li>
+        <li class="li"><a href="admin.php">Admin Login</a></li>
+        <li class="li" style="float:right"><a href="logout.php">Logout</a></li>
+        <li class="li" style="float:right"><a ><span>You are logged in as: <?php echo $_SESSION['user'];?></span> </a></li>
+    </ul>  <br><br><br>
 	<form method="post">
-        <div class="user">   
-            <span>You are logged in as: <?php echo $_SESSION['user'];?></span> 
-            <input type="submit" name="logout" value="Logout"> 
-        </div><br>
 		<h1>Enter current week Monday's date:</h1>
         <label >Date</label> 
         <input type="date" name="date">
