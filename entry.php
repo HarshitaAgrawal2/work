@@ -1,4 +1,44 @@
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="tabledit.js"></script>
+<script type="text/javascript" src="eg.js"></script>
+<?php
+$msg1="";
+$msg2="";
+$msg3="";
+if(isset($_POST['submit'])){
+    if(empty($_POST['codep'])){
+        $msg1 = "* code is required";
+    }
+    if(empty($_POST['name'])){
+        $msg2 = "* name is required";
+    }
+    if(empty($_POST['password'])){
+        $msg3 = "* password is required";
+    }
+}
+$msg11="";
+$msg12="";
+$msg13="";
+$msg14="";
+$msg15="";
+if(isset($_POST['submitm'])){
+    if(empty($_POST['codem'])){
+        $msg11 = "* code is required";
+    }
+    if(empty($_POST['namem'])){
+        $msg12 = "* name is required";
+    }
+    if(empty($_POST['domain'])){
+        $msg13 = "* domain is required";
+    }
+    if(empty($_POST['dept'])){
+        $msg14 = "* department is required";
+    }
+    if(empty($_POST['code'])){
+        $msg15 = "* code of L+1 is required";
+    }
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,12 +59,12 @@
 	<form method="post">
       
 		<h1>Add L+1:</h1>
-        <label >Code</label> 
-		<input type="text" name="codep" placeholder="Type code of L+1">
-		<label >Name</label> 
-		<input type="text" name="name" placeholder="Type name of L+1">
-		<label>Password</label>
-		<input type="password" name="password"  placeholder="Set password for L+1"> 
+        <label >Code</label>  <div id="error_msg"><?php echo $msg1 ; ?></div>
+		<input type="text" name="codep" placeholder="Type code of L+1" value="<?php echo isset($_POST['codep']) ? $_POST['codep'] : '' ?>">
+		<label >Name</label>  <div id="error_msg"><?php echo $msg2 ; ?></div>
+		<input type="text" name="name" placeholder="Type name of L+1" value="<?php echo isset($_POST['name']) ? $_POST['name'] : '' ?>">
+		<label>Password</label> <div id="error_msg"><?php echo $msg3 ; ?></div>
+		<input type="password" name="password"  placeholder="Set password for L+1" value="<?php echo isset($_POST['password']) ? $_POST['password'] : '' ?>"> 
         <input type="submit" name="submit" class="btn"> 
     </form>
 </div>
@@ -32,16 +72,16 @@
   
 	<form method="post">
         <h1>Add L:</h1>
-        <label >Code</label> 
-		<input type="text" name="codem" placeholder="Type code of L-1">
-		<label >Name</label> 
-		<input type="text" name="namem" placeholder="Type name of L-1">
-        <label >Domain Function</label> 
-		<input type="text" name="domain" placeholder="eg: RETAIL, TECH">
-        <label >Department</label> 
-		<input type="text" name="dept" placeholder="eg: BU2">
-        <label >Code of his L+1</label> 
-		<input type="text" name="code" placeholder="Type code of L+1">
+        <label >Code</label> <div id="error_msg"><?php echo $msg11 ; ?></div>
+		<input type="text" name="codem" placeholder="Type code of L-1" value="<?php echo isset($_POST['codem']) ? $_POST['codem'] : '' ?>">
+		<label >Name</label> <div id="error_msg"><?php echo $msg12 ; ?></div>
+		<input type="text" name="namem" placeholder="Type name of L-1" value="<?php echo isset($_POST['namem']) ? $_POST['namem'] : '' ?>">
+        <label >Domain Function</label> <div id="error_msg"><?php echo $msg13 ; ?></div>
+		<input type="text" name="domain" placeholder="eg: RETAIL, TECH" value="<?php echo isset($_POST['domain']) ? $_POST['domain'] : '' ?>">
+        <label >Department</label> <div id="error_msg"><?php echo $msg14 ; ?></div>
+		<input type="text" name="dept" placeholder="eg: BU2" value="<?php echo isset($_POST['dept']) ? $_POST['dept'] : '' ?>">
+        <label >Code of his L+1</label> <div id="error_msg"><?php echo $msg15 ; ?></div>
+		<input type="text" name="code" placeholder="Type code of L+1" value="<?php echo isset($_POST['code']) ? $_POST['code'] : '' ?>">
         <input type="submit" name="submitm" class="btn"> <br><br>
     </form>
 </div>
@@ -63,6 +103,9 @@
     } 
     mysqli_select_db($con, 'harshi');
 	if (isset($_POST["submit"])) {
+        if(empty($_POST['codep']) || empty($_POST['name']) || empty($_POST['password'])){
+            die();
+        }
         $codep = $_POST["codep"];
         $name = $_POST["name"];
 		$password = $_POST["password"];
@@ -78,6 +121,9 @@
         header("Location:adminlogin.php");
     }
     if (isset($_POST["submitm"])) {
+        if(empty($_POST['codem']) || empty($_POST['namem'])  || empty($_POST['dept'])|| empty($_POST['domain'])|| empty($_POST['code'])){
+            die();
+        }
         $cod = $_POST["code"];
         $code = $_POST["codem"];
         $name = $_POST["namem"];
@@ -96,10 +142,10 @@
 		if(!$status){
 		    die("Unable to load data.".mysqli_error($con));
         }
-        echo "<table><tr><th>Code</th><th>Name of L+1</th></tr>";
-        while($row = mysqli_fetch_array($status,MYSQLI_NUM)) {
-            echo "<tr><td>".$row[0]."</td>" ;
-            echo "<td>".$row[2]."</td></tr>" ; 
+        echo "<table id='data_table'><tr><th>Code</th><th>Name of L+1</th></tr>";
+        while($row = mysqli_fetch_assoc($status)) {
+            echo "<tr id=". $row['username'] ."><td>".$row['username']."</td>" ;
+            echo "<td>".$row['Namep']."</td></tr>" ; 
         }
         echo "</table>";
     }

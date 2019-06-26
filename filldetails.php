@@ -1,3 +1,6 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="tabledit.js"></script>
+<script type="text/javascript" src="eg2.js"></script>
 <?php
     session_start();
     if (isset($_SESSION["user"])) {
@@ -16,6 +19,20 @@
         die("Unable to connect");
     } 
     mysqli_select_db($con, 'harshi');
+    //
+    $sql = "select inc, name, hours from project where id=3";
+        $st = mysqli_query($con,$sql);
+        if(!$st){
+            die("Unable to load data.".mysqli_error($con));
+        }
+        echo "<table class='project_table'><tr><th>Seq</th><th>Project</th><th>Hours</th></tr>";
+        while($r = mysqli_fetch_assoc($st)){
+            echo "<tr id=". $r['inc'] ."><td>".$r['inc']."</td>" ;
+            echo "<td>".$r['name']."</td>";
+            echo "<td>".$r['hours']."</td></tr>" ;
+        }
+        echo "</table>";
+    //
     $select = "select seq, codeminus, nameMinus1, utilization from details as A left join lminus on A.codeminus=lminus.codeminus1 where A.wdate = '$date' and codeLplus1 = '$codeplus' ORDER BY `A`.`nameLplus1` ASC";
     $status = mysqli_query($con,$select);
     if(!$status){
@@ -27,15 +44,20 @@
         echo "<tr><td>".$row[1]."</td>";
         echo "<td>".$row[2]."</td>";
         echo "<td><b>".$row[3]."%</b><br><ol>";
-        $sql = "select name, hours from project where id='$seq'";
+       /* $sql = "select inc, name, hours from project where id='$seq'";
         $st = mysqli_query($con,$sql);
         if(!$st){
             die("Unable to load data.".mysqli_error($con));
         }
-        while($r = mysqli_fetch_array($st, MYSQLI_NUM)){
-            echo "<li>".$r[0].": ".$r[1]." hrs</li>";
+        echo "<table class='project_table'><tr><th>Seq</th><th>Project</th><th>Hours</th></tr>";
+        while($r = mysqli_fetch_assoc($st)){
+            echo "<tr id=". $r['inc'] ."><td>".$r['inc']."</td>" ;
+            echo "<td>".$r['name']."</td>";
+            echo "<td>".$r['hours']."</td></tr>" ;
         }
-        echo "</ol></td></tr>";
+        echo "</table>";*/
+        //https://stackoverflow.com/questions/32273755/clickable-html-table-rows-that-post-to-a-php-popup-window
+        echo "</td></tr>";
     }   
     echo "</table></div>";
     $select = "select codeminus1, nameMinus1 from lminus where codeplus1 = '$codeplus' and codeminus1 NOT IN (select codeminus from details where wdate = '$date' and codeLplus1 = '$codeplus')";
@@ -145,7 +167,8 @@
 			}
 		}
 		if($flag==0){
-			die('You can enter utilization of resources who work under you');
+            echo "<div id='error_msg'>* You can enter utilization of resources who work under you</div>" ;
+            die();
 		}
 		$project = $_POST["project"];
         $date = $_SESSION["date"];
@@ -172,12 +195,14 @@
         $sum = $row[0] + $hours;
         //end
         if($sum>42.5){
-            die("Sum of hours cannot exceed by 42.5");
+            echo "<div id='error_msg'>* Sum of hours cannot exceed by <b>42.5</b></div>" ;
+            die();
         }
         $sql = "insert into project (id, name, hours) values('$seq','$project','$hours')";
         $status = mysqli_query($con, $sql);
 		if(!$status){
-		 	die(mysqli_error($con));
+            echo "<div id='error_msg'>* Already entered working hours for project: <b>".$project."</b>" ;
+		 	die();
         }
         echo "Stored successfully";
         header("Location:filldetails.php");

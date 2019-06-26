@@ -186,6 +186,7 @@ ol {
   }
   .adminSideForm input[type="date"], .userSideForm input[type="date"]{
       background-color: white;
+      
   }
 .admincol form input[type="text"], .admincol form input[type="password"], .adminSideForm input[type="date"], .userSideForm input[type="date"]{
     border: none;
@@ -213,7 +214,7 @@ ol {
     font-weight: 900;
     border: 1px solid olive;
   }
-  .userSideForm input[type="date"]{
+  .userSideForm input[type="date"], .adminSideForm input[type="date"]{
     border-bottom: 2px solid teal;
     color: teal;
   }
