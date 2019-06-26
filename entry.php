@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,40 +9,48 @@
 
     <ul>
         <li class="li"><a href="admin.php">Admin Home</a></li>
-        <li class="li"><a href="index.php">User Login</a></li>
+        <li class="li"><a href="index.php">User</a></li>
         <li class="li"><a class="active" href="entry.php">Add User</a></li>
         <li class="li" style="float:right"><a href="logout.php">Logout</a></li>
         <li class="li" style="float:right"><a ><span>You are logged in as: <?php session_start(); echo $_SESSION['admin'];?></span> </a></li>
     </ul>
-    <!--<div id="home"><a href="admin.php">Back to Admin Home page</a></div>-->
+    <br><br><br> <img src="logo.png" width="15%"> <br>
+<div class="admincol">
 	<form method="post">
-        <!--<div class="user">   
-            <span>You are logged in as: <?php session_start(); echo $_SESSION['admin'];?></span> 
-            <input type="submit" name="logout" value="Logout"> 
-        </div>--><br><br><br>
+      
 		<h1>Add L+1:</h1>
         <label >Code</label> 
-		<input type="text" name="codep" placeholder="Enter code of L+1">
+		<input type="text" name="codep" placeholder="Type code of L+1">
 		<label >Name</label> 
-		<input type="text" name="name" placeholder="Enter name of L+1">
+		<input type="text" name="name" placeholder="Type name of L+1">
 		<label>Password</label>
 		<input type="password" name="password"  placeholder="Set password for L+1"> 
-        <input type="submit" name="submit"> <hr>
-        <h1>Add L-1:</h1>
+        <input type="submit" name="submit" class="btn"> 
+    </form>
+</div>
+<div class="admincol">
+  
+	<form method="post">
+        <h1>Add L:</h1>
         <label >Code</label> 
-		<input type="text" name="codem" placeholder="Enter code of L-1">
+		<input type="text" name="codem" placeholder="Type code of L-1">
 		<label >Name</label> 
-		<input type="text" name="namem" placeholder="Enter name of L-1">
+		<input type="text" name="namem" placeholder="Type name of L-1">
         <label >Domain Function</label> 
 		<input type="text" name="domain" placeholder="eg: RETAIL, TECH">
         <label >Department</label> 
 		<input type="text" name="dept" placeholder="eg: BU2">
         <label >Code of his L+1</label> 
-		<input type="text" name="code" placeholder="Enter code of L+1">
-        <input type="submit" name="submitm"> <hr>
-        <input type="submit" name="show_plus" value="Show ALL L+1">
-        <input type="submit" name="show_minus" value="Show ALL L-1"> 
-	</form>  <br>
+		<input type="text" name="code" placeholder="Type code of L+1">
+        <input type="submit" name="submitm" class="btn"> <br><br>
+    </form>
+</div>
+<div class="admincol">
+    <form method="post">
+        <input type="submit" name="show_plus" value="Show ALL L+1" class="showbtn" style="background-color: <?php isset($_POST["show_plus"]) ? $color='yellowgreen' : $color="beige"; echo $color; ?>">
+        <input type="submit" name="show_minus" value="Show ALL L" class="showbtn" style="background-color: <?php isset($_POST["show_minus"]) ? $color='yellowgreen' : $color="beige"; echo $color; ?>"> 
+    </form>  <br>
+</div>
 </body>
 </html>
 <?php

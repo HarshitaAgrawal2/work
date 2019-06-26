@@ -38,19 +38,20 @@
 <body>
 
 	<ul>
-		<li class="li"><a  href="index.php">User Login</a></li>
-		<li class="li"><a  class="active" href="admin.php">Admin Login</a></li>
-	</ul> 
-	<br><br><br><br>
-    
+		<li class="li"><a  href="index.php">User</a></li>
+		<li class="li"><a  class="active" href="admin.php">Admin</a></li>
+	</ul>   
+	
+	<br><br><br> <img src="logo.png" width="15%"><br>
+   
 	<form method="post" id="loginform">
-		<p id="loginHeading">Admin login</p> <br>
+		<p id="loginHeading">Admin login</p>
 		<label class="inputlabel">Username</label> 
 		<input type="text" name="username" placeholder="Type your code" class="inputfield">
 		<label class="inputlabel">Password</label>
 		<input type="password" name="password" class="inputfield" placeholder="Type your password"> 
 		<input type="submit" name="loginSubmit" value="Login" id="loginbtn">
-		<div id="error_msg"><?php echo $msg ; ?></div>
+		<div id="error_msg"><?php echo $msg ; ?></div> <br><br><br>
 	</form>
 </body>
 </html>

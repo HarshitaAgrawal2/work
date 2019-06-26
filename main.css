@@ -60,7 +60,8 @@ hr{
 #loginform{
     border: none;
     width: 40%;
-    background-color: ghostwhite;
+    margin-left:30%;
+    background-color: unset;
     border-radius: 50px;
     padding: 10px 4% 20px 4%;
     border:1px solid rgb(0, 174, 255);
@@ -116,6 +117,8 @@ ul {
 body {
     margin:0;
     font-family: sans-serif;
+    background: url("img1.jpg") no-repeat;
+    background-size: cover;
 }
 input[type="text"]:hover , input[type="password"]:hover, input[type="date"]:hover, input[type="number"]:hover{
     border-color: #fCA750;
@@ -146,10 +149,71 @@ ol {
       display: block;
       width:100%;
   }
-  .col table th, .col table td{
-    width: 100%;
-  }
+  
   .col table caption{
       background-color: white;
       border:1px solid black;
+  }
+  .util{
+      width: 100%;
+  }
+  .btn{
+    width: max-content;
+    border-radius: 200px;
+    border: none;
+    background-color: tomato;
+    padding: 1% 4%;
+    font-size: 22px;
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  .adminSideForm , .userSideForm{
+      border-radius: 50px;
+      border: 1px solid orange;
+      background-color:white;
+      padding: 20px;
+  }
+  .admincol{
+      width: 33.33%;
+      float:left;
+  }
+  .admincol form{
+      width:100%;
+      margin-left:0;
+      padding: 0 6%;
+      background-color: white;
+  }
+  .adminSideForm input[type="date"], .userSideForm input[type="date"]{
+      background-color: white;
+  }
+.admincol form input[type="text"], .admincol form input[type="password"], .adminSideForm input[type="date"], .userSideForm input[type="date"]{
+    border: none;
+      margin:10px 0;
+      border-bottom: 1px solid black;
+      border-radius: 5px;
+      padding: 5px;
+      color:black;
+      font-weight: bold;
+  }
+  .admincol form label, .adminSideForm label, .userSideForm label{
+      color: teal;
+      font-weight: bolder;
+  }
+  .admincol form h1 ,.adminSideForm h2, .userSideForm h1{
+      color: teal;
+      text-align: left;
+  }
+  .showbtn{
+    border: none;
+    border-radius: 10px;
+    padding: 1% 5%;
+    color: olive;
+    font-size: large;
+    font-weight: 900;
+    border: 1px solid olive;
+  }
+  .userSideForm input[type="date"]{
+    border-bottom: 2px solid teal;
+    color: teal;
   }

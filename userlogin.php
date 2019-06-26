@@ -38,12 +38,13 @@
 	<link type="text/css" rel="stylesheet" href="main.css" />
 </head>
 <body>
-
+	
 	<ul>
-		<li class="li"><a class="active" href="index.php">User Login</a></li>
-		<li class="li"><a  href="admin.php">Admin Login</a></li>
-	</ul> 
-	<br><br><br><br>
+		<li class="li"><a class="active" href="index.php">User</a></li>
+		<li class="li"><a  href="admin.php">Admin</a></li>
+	</ul>  <br>
+	
+	<br><br> <img src="logo.png" width="15%"><br>
 	<form method="post" id="loginform">
 		<p id="loginHeading">User login</p> 
 		<label class="inputlabel">Code</label> 
@@ -51,7 +52,7 @@
 		<label class="inputlabel">Password</label>
 		<input type="password" name="password"  placeholder="Type your password" class="inputfield"> 
 		<input type="submit" name="loginSubmit" value="Log in" id="loginbtn">
-		<div id="error_msg"><?php echo $msg ; ?></div>
+		<div id="error_msg"><?php echo $msg ; ?></div><br><br><br>
 	</form>
 </body>
 </html>
