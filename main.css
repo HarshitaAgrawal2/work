@@ -142,7 +142,7 @@ ol {
     float: left;
     width: 31%;
     padding: 0px;
-    height: 300px; 
+    height: 350px; 
     margin:10px;
   }
   .col table{
@@ -217,4 +217,7 @@ ol {
   .userSideForm input[type="date"], .adminSideForm input[type="date"]{
     border-bottom: 2px solid teal;
     color: teal;
+  }
+  caption{
+    caption-side: top;
   }

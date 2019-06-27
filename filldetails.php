@@ -1,6 +1,44 @@
+<?php
+ // Check if user has requested to get detail
+ if (isset($_POST["get_data"]))
+ {
+     // Get the ID of customer user has selected
+     $seq = $_POST["id"];
+    //echo "<script>console.log('okk')</script>";
+     // Connecting with database
+     $connection = mysqli_connect("localhost", "root", "", "harshi");
+
+     // Getting specific customer's detail
+     $sql = "SELECT * FROM project where id='$seq' ";
+     $result = mysqli_query($connection, $sql);
+   
+     $return_arr = array();
+
+     while($row = mysqli_fetch_array($result)){
+         $inc = $row['inc'];
+         $name = $row['name'];
+         $hours = $row['hours']; 
+        
+         $return_arr[] = array("inc" => $inc,
+                         "name" => $name,
+                         "hours" => $hours,
+                         );
+     }
+     // Encoding array in JSON format
+     echo json_encode($return_arr);
+
+     // Important to stop further executing the script on AJAX by following line
+     exit();
+ }
+?>
+
+<!-- Include bootstrap & jQuery -->
+<link rel="stylesheet" href="view/bootstrap.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript" src="tabledit.js"></script>
 <script type="text/javascript" src="eg2.js"></script>
+<script src="view/bootstrap.js"></script>
+
 <?php
     session_start();
     if (isset($_SESSION["user"])) {
@@ -19,7 +57,7 @@
         die("Unable to connect");
     } 
     mysqli_select_db($con, 'harshi');
-    //
+    ///////
     $sql = "select inc, name, hours from project where id=3";
         $st = mysqli_query($con,$sql);
         if(!$st){
@@ -32,32 +70,27 @@
             echo "<td>".$r['hours']."</td></tr>" ;
         }
         echo "</table>";
-    //
+    //////
     $select = "select seq, codeminus, nameMinus1, utilization from details as A left join lminus on A.codeminus=lminus.codeminus1 where A.wdate = '$date' and codeLplus1 = '$codeplus' ORDER BY `A`.`nameLplus1` ASC";
     $status = mysqli_query($con,$select);
     if(!$status){
         die("Unable to load data.".mysqli_error($con));
     }
-    echo "<div class='col'><table id='done'><caption>Done</caption><tr><th>Code</th><th>Name</th><th class='util'>Utilization</th></tr>";
+    echo "<div class='col'><table id='done'><caption>Done</caption><tr><th>Code</th><th>Name</th><th class='util'>Utilization</th><th>Action</th></tr>";
     while($row = mysqli_fetch_array($status,MYSQLI_NUM)){
         $seq = $row[0];
         echo "<tr><td>".$row[1]."</td>";
         echo "<td>".$row[2]."</td>";
-        echo "<td><b>".$row[3]."%</b><br><ol>";
-       /* $sql = "select inc, name, hours from project where id='$seq'";
-        $st = mysqli_query($con,$sql);
-        if(!$st){
-            die("Unable to load data.".mysqli_error($con));
-        }
-        echo "<table class='project_table'><tr><th>Seq</th><th>Project</th><th>Hours</th></tr>";
-        while($r = mysqli_fetch_assoc($st)){
-            echo "<tr id=". $r['inc'] ."><td>".$r['inc']."</td>" ;
-            echo "<td>".$r['name']."</td>";
-            echo "<td>".$r['hours']."</td></tr>" ;
-        }
-        echo "</table>";*/
-        //https://stackoverflow.com/questions/32273755/clickable-html-table-rows-that-post-to-a-php-popup-window
-        echo "</td></tr>";
+        echo "<td><b>".$row[3]."%</b><br>";
+        echo "</td>";
+        ?>
+        <td>
+            <button class = "btn btn-primary" onclick="loadData(this.getAttribute('data-id'));" data-id="<?php echo $seq; ?>">
+                Project Details
+            </button>
+        </td>
+        <?php
+        echo "</tr>";
     }   
     echo "</table></div>";
     $select = "select codeminus1, nameMinus1 from lminus where codeplus1 = '$codeplus' and codeminus1 NOT IN (select codeminus from details where wdate = '$date' and codeLplus1 = '$codeplus')";
@@ -212,3 +245,73 @@
         header("Location:userlogin.php");
     }
 ?>
+
+<script>
+    function loadData(id) { 
+        console.log("details seq=",id);
+        $.ajax({
+            url: "filldetails.php",
+            method: "POST",            
+            data: {get_data: 1, id: id},
+            success: function (response) {   
+                
+                var len = response.length; 
+                console.log("Response",response);
+                var jsonpar=$.parseJSON(response);  
+                console.log("Response length",jsonpar.length);
+                var html = "<table class='project_table'><tr><th>Seq</th><th>Project</th><th>Hours</th></tr>";
+                
+                for(var i=0; i<jsonpar.length; i++){
+                    
+                    var inc = jsonpar[i].inc;
+                    var name = jsonpar[i].name;
+                    var hours = jsonpar[i].hours;
+                   
+                    html += "<tr id='"+inc+"' ><td>" + inc + "</td>";
+                    html += "<td>" + name + "</td>";
+                    html += "<td>" + hours + "</td></tr>";
+                }
+                html += "</table>";
+                
+                // And now assign this HTML layout in pop-up body
+                
+                $("#modal-body").html(html);
+
+
+                $("#myModal").modal();
+            }
+        });
+    }
+</script>
+
+
+<!-- Modal -->
+<div class = "modal fade" id = "myModal" tabindex = "-1" role = "dialog" aria-hidden = "true">
+   
+   <div class = "modal-dialog">
+      <div class = "modal-content">
+         
+         <div class = "modal-header">
+            <h4 class = "modal-title">
+               Project Detail
+            </h4>
+
+            <button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true">
+               ×
+            </button>
+         </div>
+        
+         <div id = "modal-body">
+            Press ESC button to exit.
+         </div>
+         
+         <div class = "modal-footer">
+            <button type = "button" class = "btn btn-default" data-dismiss = "modal">
+               OK
+            </button>
+         </div>
+         
+      </div><!-- /.modal-content -->
+   </div><!-- /.modal-dialog -->
+   
+</div><!-- /.modal -->

@@ -9,7 +9,7 @@
     mysqli_select_db($conn,'harshi');
     
     $input = filter_input_array(INPUT_POST);
-    echo "dfkjsdf";
+    
     if ($input['action'] == 'edit') {
 
         $update_field='';
@@ -21,12 +21,8 @@
         } 
 
         if($update_field && $input['inc']) {
-            echo "Hiiiiiiiiiiiiiii";
             $sql_query = "UPDATE project SET $update_field WHERE inc='" . $input['inc'] . "'";
             mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
-        }
-        else{
-            echo "byeeee";
         }
     }
 ?>
