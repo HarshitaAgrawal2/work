@@ -156,6 +156,10 @@ ol {
   }
   .util{
       width: 100%;
+      
+  }
+  td,th{
+    text-align:center;
   }
   .btn{
     width: max-content;

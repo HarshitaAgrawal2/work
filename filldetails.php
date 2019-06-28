@@ -58,25 +58,14 @@
     } 
     mysqli_select_db($con, 'harshi');
     ///////
-    $sql = "select inc, name, hours from project where id=3";
-        $st = mysqli_query($con,$sql);
-        if(!$st){
-            die("Unable to load data.".mysqli_error($con));
-        }
-        echo "<table class='project_table'><tr><th>Seq</th><th>Project</th><th>Hours</th></tr>";
-        while($r = mysqli_fetch_assoc($st)){
-            echo "<tr id=". $r['inc'] ."><td>".$r['inc']."</td>" ;
-            echo "<td>".$r['name']."</td>";
-            echo "<td>".$r['hours']."</td></tr>" ;
-        }
-        echo "</table>";
+   
     //////
     $select = "select seq, codeminus, nameMinus1, utilization from details as A left join lminus on A.codeminus=lminus.codeminus1 where A.wdate = '$date' and codeLplus1 = '$codeplus' ORDER BY `A`.`nameLplus1` ASC";
     $status = mysqli_query($con,$select);
     if(!$status){
         die("Unable to load data.".mysqli_error($con));
     }
-    echo "<div class='col'><table id='done'><caption>Done</caption><tr><th>Code</th><th>Name</th><th class='util'>Utilization</th><th>Action</th></tr>";
+    echo "<div class='col'><table id='done'><caption>Done</caption><tr><th>Code</th><th>Name</th><th >Utilization</th><th class='util'>Action</th></tr>";
     while($row = mysqli_fetch_array($status,MYSQLI_NUM)){
         $seq = $row[0];
         echo "<tr><td>".$row[1]."</td>";

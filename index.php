@@ -13,12 +13,19 @@
         else{
             $date = $_POST["date"];
             $d = date("l", strtotime($date));
-            if($d=='Monday'){
-                $_SESSION['date'] = $_POST["date"];
-		        header("Location:filldetails.php");
+            $selectedWeekNo = date("W", strtotime($date));
+            $todayWeekNo = date("W", strtotime(date("Y/m/d")));
+            if($selectedWeekNo==$todayWeekNo){
+                if($d=='Monday'){
+                    $_SESSION['date'] = $_POST["date"];
+                    header("Location:filldetails.php");
+                }
+                else{
+                    $msg = "* Select monday's date";
+                }
             }
             else{
-                $msg = "* Select monday's date";
+                $msg = "* You cannot select previous week day";
             }
         }
     }

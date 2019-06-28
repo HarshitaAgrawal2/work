@@ -54,5 +54,6 @@
 		<input type="submit" name="loginSubmit" value="Log in" id="loginbtn">
 		<div id="error_msg"><?php echo $msg ; ?></div><br><br><br>
 	</form>
+	
 </body>
 </html>
