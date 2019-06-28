@@ -156,8 +156,8 @@
 ?>
         </datalist>
 		<label >Project</label> 
-        <select name="project"  value="<?php echo isset($_POST['project']) ? $_POST['project'] : '' ?>">
-            <option value="" selected>Select</option>
+        <select name="project"  >
+            <option value="<?php echo isset($_POST['project']) ? $_POST['project'] : '' ?>" selected>Select</option>
 <?php 
                 for($i=0; $i<count($projectlist); $i++){
                     echo "<option>".$projectlist[$i]."</option>";

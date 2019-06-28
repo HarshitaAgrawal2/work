@@ -5,6 +5,38 @@
     else{
         header("Location:adminlogin.php");
     }
+    $url = "localhost:3306";
+    $user = "root";
+    $psw = "";
+    $con = mysqli_connect($url, $user, $psw);
+    if(!$con){
+        die("Unable to connect");
+    } 
+    mysqli_select_db($con, 'harshi');
+    ///////
+    $select = "select namep from projectList ORDER BY namep";
+    $status = mysqli_query($con,$select);
+    if(!$status){
+        die("Unable to load project data.".mysqli_error($con));
+    }
+    $projectlist = array();
+    $i = 0;
+    while($row = mysqli_fetch_array($status,MYSQLI_NUM)){
+        $projectlist[$i++] = $row[0];
+    }
+    ////
+    ///////
+    $select = "SELECT DISTINCT domain FROM lminus order by domain";
+    $status = mysqli_query($con,$select);
+    if(!$status){
+        die("Unable to load domain data.".mysqli_error($con));
+    }
+    $domainlist = array();
+    $i = 0;
+    while($row = mysqli_fetch_array($status,MYSQLI_NUM)){
+        $domainlist[$i++] = $row[0];
+    }
+    ////
 ?>
 <!DOCTYPE html>
 <html>
@@ -35,6 +67,28 @@
         <input type="date" name="date" value="<?php echo isset($_POST['date']) ? $_POST['date'] : '' ?>">
         <label >Date (To)</label> 
         <input type="date" name="todate" value="<?php echo isset($_POST['todate']) ? $_POST['todate'] : '' ?>">
+        <label>Utilization below ?:</label>
+        <input type="number" min="0" max="100" name="belowfilter" placeholder="100">
+        <label>Utilization above ?:</label>
+        <input type="number" min="0" max="100" name="abovefilter" placeholder="0">
+        <label >Project</label> 
+        <select name="projectfilter">
+            <option value="" selected>Select</option>
+<?php 
+                for($i=0; $i<count($projectlist); $i++){
+                    echo "<option>".$projectlist[$i]."</option>";
+                }
+?>
+        </select> <br><br>
+        <label >Domain Function</label> 
+        <select name="domainfilter">
+            <option value="" selected>Select</option>
+<?php 
+                for($i=0; $i<count($domainlist); $i++){
+                    echo "<option>".$domainlist[$i]."</option>";
+                }
+?>
+        </select> <br>
         <input type="submit" name="show_details" class="btn" value="Generate Report">
 	</form> <br>
 </body>

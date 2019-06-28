@@ -66,7 +66,7 @@ if(isset($_POST['submitm'])){
 		<input type="text" name="name" placeholder="Type name of L+1" value="<?php echo isset($_POST['name']) ? $_POST['name'] : '' ?>">
 		<label>Password</label> <div id="error_msg"><?php echo $msg3 ; ?></div>
 		<input type="password" name="password"  placeholder="Set password for L+1" value="<?php echo isset($_POST['password']) ? $_POST['password'] : '' ?>"> 
-        <input type="submit" name="submit" class="btn"> 
+        <input type="submit" name="submit" class="btn"> <br><br>
     </form>
 </div>
 <div class="admincol">
