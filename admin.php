@@ -26,6 +26,7 @@
         <li class="li" style="float:right"><a href="logout.php">Logout</a></li>
         <li class="li" style="float:right"><a ><span>You are logged in as: <?php echo $_SESSION['admin'];?></span> </a></li>
         <li class="li"><a href="entry.php">Add User</a></li>
+        <li class="li"><a href="excel.php">Upload Project list</a></li>
     </ul>
     <br><br><br> <img src="logo.png" width="15%"><br>
 	<form method="post" class="adminSideForm"> 
@@ -104,7 +105,7 @@
                 //$tableCount=0;
             //}
         }
-        $select = "select avg(utilization) from lminus as A left join (select * from details where wdate between '$start' and '$todate') as B on A.codeplus1=B.codeLplus1 and A.codeminus1=B.codeminus left join user on user.username = codeplus1 group by A.codeplus1, A.codeminus1 order by A.codeplus1, A.codeminus1";
+        $select = "select round(avg(utilization),2) from lminus as A left join (select * from details where wdate between '$start' and '$todate') as B on A.codeplus1=B.codeLplus1 and A.codeminus1=B.codeminus left join user on user.username = codeplus1 group by A.codeplus1, A.codeminus1 order by A.codeplus1, A.codeminus1";
         $status = mysqli_query($con,$select);
         if(!$status){
             die("Unable to load data.".mysqli_error($con));

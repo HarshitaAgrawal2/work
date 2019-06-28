@@ -15,7 +15,7 @@
             $d = date("l", strtotime($date));
             $selectedWeekNo = date("W", strtotime($date));
             $todayWeekNo = date("W", strtotime(date("Y/m/d")));
-            if($selectedWeekNo==$todayWeekNo){
+            if($selectedWeekNo >= $todayWeekNo){
                 if($d=='Monday'){
                     $_SESSION['date'] = $_POST["date"];
                     header("Location:filldetails.php");

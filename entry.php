@@ -53,6 +53,7 @@ if(isset($_POST['submitm'])){
         <li class="li"><a class="active" href="entry.php">Add User</a></li>
         <li class="li" style="float:right"><a href="logout.php">Logout</a></li>
         <li class="li" style="float:right"><a ><span>You are logged in as: <?php session_start(); echo $_SESSION['admin'];?></span> </a></li>
+        <li class="li"><a href="excel.php">Upload Project list</a></li>
     </ul>
     <br><br><br> <img src="logo.png" width="15%"> <br>
 <div class="admincol">

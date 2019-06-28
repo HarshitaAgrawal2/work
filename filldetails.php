@@ -7,12 +7,17 @@
     //echo "<script>console.log('okk')</script>";
      // Connecting with database
      $connection = mysqli_connect("localhost", "root", "", "harshi");
+     
+     $sql = "SELECT sum(hours) FROM project where id='$seq' ";
+     $result = mysqli_query($connection, $sql);
+     $row = mysqli_fetch_array($result);
+     $donehrs = $row[0];
 
+     $return_arr = array();
+     $return_arr[] = array("donehrs" => $donehrs);
      // Getting specific customer's detail
      $sql = "SELECT * FROM project where id='$seq' ";
      $result = mysqli_query($connection, $sql);
-   
-     $return_arr = array();
 
      while($row = mysqli_fetch_array($result)){
          $inc = $row['inc'];
@@ -58,15 +63,27 @@
     } 
     mysqli_select_db($con, 'harshi');
     ///////
-   
+    $select = "select namep from projectList ORDER BY namep";
+    $status = mysqli_query($con,$select);
+    if(!$status){
+        die("Unable to load project data.".mysqli_error($con));
+    }
+    $projectlist = array();
+    $i = 0;
+    while($row = mysqli_fetch_array($status,MYSQLI_NUM)){
+        $projectlist[$i++] = $row[0];
+    }
     //////
     $select = "select seq, codeminus, nameMinus1, utilization from details as A left join lminus on A.codeminus=lminus.codeminus1 where A.wdate = '$date' and codeLplus1 = '$codeplus' ORDER BY `A`.`nameLplus1` ASC";
     $status = mysqli_query($con,$select);
     if(!$status){
         die("Unable to load data.".mysqli_error($con));
     }
+    $codelist = array();
+    $i = 0;
     echo "<div class='col'><table id='done'><caption>Done</caption><tr><th>Code</th><th>Name</th><th >Utilization</th><th class='util'>Action</th></tr>";
     while($row = mysqli_fetch_array($status,MYSQLI_NUM)){
+        $codelist[$i++] = $row[1];
         $seq = $row[0];
         echo "<tr><td>".$row[1]."</td>";
         echo "<td>".$row[2]."</td>";
@@ -88,8 +105,6 @@
         die("Unable to load data.".mysqli_error($con));
     }
     echo "<div class='col'><table id='rem'><caption>Remaining</caption><tr><th>Code</th><th class='util'>Name</th></tr>";
-    $codelist = array();
-    $i = 0;
     while($row = mysqli_fetch_array($status,MYSQLI_NUM)){
         $codelist[$i++] = $row[0];
         echo "<tr><td>".$row[0]."</td>";
@@ -134,21 +149,22 @@
         <input type="text" name="code" placeholder="Enter code of L-1" list="codeList" value="<?php echo isset($_POST['code']) ? $_POST['code'] : '' ?>" >
         <div id="error_msg"><?php echo $msg1 ; ?></div>
         <datalist id="codeList">
-            <?php 
+<?php 
                 for($i=0; $i<count($codelist); $i++){
                     echo "<option>".$codelist[$i]."</option>";
                 }
-            ?>
+?>
         </datalist>
 		<label >Project</label> 
-        <input type="text" name="project" list="projectNames" value="<?php echo isset($_POST['project']) ? $_POST['project'] : '' ?>" />
+        <select name="project"  value="<?php echo isset($_POST['project']) ? $_POST['project'] : '' ?>">
+            <option value="" selected>Select</option>
+<?php 
+                for($i=0; $i<count($projectlist); $i++){
+                    echo "<option>".$projectlist[$i]."</option>";
+                }
+?>
+        </select>
         <div id="error_msg"><?php echo $msg2 ; ?></div>
-        <datalist id="projectNames">
-          <option>Volvo</option>
-          <option>Saab</option>
-          <option>Mercedes</option>
-          <option>Audi</option>
-        </datalist>
         <label>Working Hours for a week of <?php echo $_SESSION["date"] ?></label>
         <input type="number" name="utilization" min="0" max="42.5" value="<?php echo isset($_POST['utilization']) ? $_POST['utilization'] : '' ?>" placeholder="eg: 20 ( Expanation: 5 hrs/day * 4 days = 20 hrs/week )"  step="0.1">
         <div id="error_msg"><?php echo $msg3 ; ?></div>
@@ -226,8 +242,13 @@
             echo "<div id='error_msg'>* Already entered working hours for project: <b>".$project."</b>" ;
 		 	die();
         }
-        echo "Stored successfully";
-        header("Location:filldetails.php");
+        //echo "Stored successfully";
+    ?>
+    <script> location.replace("filldetails.php"); </script>
+    <?php
+        //header("Location:filldetails.php"); 
+        //$_POST = array();
+        //echo '<script type="text/javascript">location.reload(true);</script>';
 	}
 	if (isset($_POST["logout"])) {
         session_destroy();
@@ -248,9 +269,11 @@
                 console.log("Response",response);
                 var jsonpar=$.parseJSON(response);  
                 console.log("Response length",jsonpar.length);
+                var donehrs = jsonpar[0].donehrs;
+                var remhrs = 42.5 - donehrs;
                 var html = "<table class='project_table'><tr><th>Seq</th><th>Project</th><th>Hours</th></tr>";
                 
-                for(var i=0; i<jsonpar.length; i++){
+                for(var i=1; i<jsonpar.length; i++){
                     
                     var inc = jsonpar[i].inc;
                     var name = jsonpar[i].name;
@@ -261,7 +284,8 @@
                     html += "<td>" + hours + "</td></tr>";
                 }
                 html += "</table>";
-                
+                html += "<br><br>Total hours utilized: "+donehrs+"<br>";
+                html += "Remaining hours to be utilized: "+remhrs+"<br>";
                 // And now assign this HTML layout in pop-up body
                 
                 $("#modal-body").html(html);
