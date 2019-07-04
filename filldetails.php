@@ -54,7 +54,7 @@
     echo "<br><br><br> <img src='logo.png' width='15%'><br>";
     $date = $_SESSION['date'];
     $d = date("l, F d, Y", strtotime($date));
-    echo "<h2 style='background-color:yellow; width:fit-content'>".$d."</h2>";
+    echo "<h4 style='background-color:yellow; width:fit-content'>".$d."</h4>";
     $codeplus = $_SESSION['user'];
     $url = "localhost:3306";
     $user = "root";
@@ -93,7 +93,7 @@
         echo "</td>";
         ?>
         <td>
-            <button class = "btn btn-primary" onclick="loadData(this.getAttribute('data-id'));" data-id="<?php echo $seq; ?>">
+            <button style="font-size:15px" class = "btn btn-primary" onclick="loadData(this.getAttribute('data-id'));" data-id="<?php echo $seq; ?>">
                 Project Details
             </button>
         </td>
@@ -133,7 +133,13 @@
 <html>
 <head>
 	<title>Project</title>
-	<link type="text/css" rel="stylesheet" href="main.css" />
+    <link type="text/css" rel="stylesheet" href="main.css" />
+    <style>
+        table caption{
+            font-size: 20px;
+            color:#6CA82E;
+        }
+    </style>
 </head>
 <body>
 	
@@ -142,11 +148,11 @@
         <li class="li"><a href="admin.php">Admin</a></li>
         <li class="li"><a href="filldetails.php" class="active">Fill Details</a></li>
         <li class="li" style="float:right"><a href="logout.php">Logout</a></li>
-        <li class="li" style="float:right; color:white"><a ><span>You are logged in as: <?php echo $_SESSION['user'];?></span> </a></li>
+        <li class="li" style="float:right; color:white"><a ><span>You are logged in as: <?php echo $_SESSION['nam'];?></span> </a></li>
     </ul> 
 <div id="filldetailsform" class="col">
     <form method="post">
-        <h1>Fill Details:</h1>
+        <h1 style="font-size: 25px;">Fill Details:</h1>
         <label >Code</label> 
         <input type="text" name="code" placeholder="Enter code of L-1" list="codeList" value="<?php echo isset($_POST['code']) ? $_POST['code'] : '' ?>" >
         <div id="error_msg"><?php echo $msg1 ; ?></div>
@@ -166,8 +172,8 @@
                 }
 ?>
         </select>
-        <div id="error_msg"><?php echo $msg2 ; ?></div>
-        <label>Working Hours for a week of <?php echo $_SESSION["date"] ?></label>
+        <div id="error_msg"><?php echo $msg2 ; ?></div> 
+        <label>Billable Hours for a week of <?php echo $_SESSION["date"] ?></label>
         <input type="number" name="utilization" min="0" max="42.5" value="<?php echo isset($_POST['utilization']) ? $_POST['utilization'] : '' ?>" placeholder="eg: 20 ( Expanation: 5 hrs/day * 4 days = 20 hrs/week )"  step="0.1">
         <div id="error_msg"><?php echo $msg3 ; ?></div>
         <input type="submit" name="submit"><hr>
@@ -241,7 +247,7 @@
         $sql = "insert into project (id, name, hours) values('$seq','$project','$hours')";
         $status = mysqli_query($con, $sql);
 		if(!$status){
-            echo "<div id='error_msg'>* Already entered working hours for project: <b>".$project."</b>" ;
+            echo "<div id='error_msg'>* Already entered hours for project: <b>".$project."</b>" ;
 		 	die();
         }
         //echo "Stored successfully";

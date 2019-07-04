@@ -28,12 +28,31 @@ table{
     background-color: aquamarine;
 }
 #rem{
-    background-color: red;
+    background-color: transparent;
+    
+}
+#rem th, #done th{
+    background-color: transparent;
+}
+#rem td{
+    padding:2%;
+    color: #C12464;
+}
+#rem caption{
+    background-color: snow;
+    color:#C12464;
 }
 #done{
-    background-color:greenyellow;
+    background-color:transparent;
     float: left;
     margin-left: 0%;
+}
+#done td{
+    color:#6CA82E;
+}
+#done caption{
+    background-color: rgb(246, 248, 245);
+    color:#6CA82E;
 }
 th{
     background-color: gold;
@@ -43,7 +62,7 @@ caption{
     font-size: 30px;
 }
 hr{
-    border-color:rgb(141, 34, 241);
+    border-color:#0C76BC;
     width:100%;
 }
 #loginbtn{
@@ -128,7 +147,9 @@ ol {
     list-style-type: none;    
 }
 #filldetailsform{
-    background-color: yellowgreen;
+    background-color: white;
+    color: #0C76BC;
+    border: 1px  solid black;
 }
 #filldetailsform form{
     width: 90%;

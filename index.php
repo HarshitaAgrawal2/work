@@ -41,7 +41,7 @@
         <li class="li"><a class="active" href="index.php">Home</a></li>
         <li class="li"><a href="admin.php">Admin</a></li>
         <li class="li" style="float:right"><a href="logout.php">Logout</a></li>
-        <li class="li" style="float:right"><a ><span>You are logged in as: <?php echo $_SESSION['user'];?></span> </a></li>
+        <li class="li" style="float:right"><a ><span>You are logged in as: <?php echo $_SESSION['nam'];?></span> </a></li>
     </ul>  <br><br><br> <img src="logo.png" width="15%"><br>
 	<form method="post" class="userSideForm">
 		<h1>Enter current week Monday's date:</h1>

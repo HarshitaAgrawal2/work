@@ -170,7 +170,7 @@ if(isset($_POST['submitm'])){
 		if(!$status){
 		    die("Unable to load data.".mysqli_error($con));
         }
-        echo "<table id='ldata_table'><tr><th>Code</th><th>Name of L-1</th><th>DomainFunction</th><th>Dept</th><th>L+1</th></tr>";
+        echo "<table id='ldata_table'><tr><th>Code</th><th>Name of L</th><th>DomainFunction</th><th>Dept</th><th>L+1</th></tr>";
         while($row = mysqli_fetch_array($status,MYSQLI_NUM)) {
             echo "<tr><td>".$row[1]."</td>" ;
             echo "<td>".$row[2]."</td>" ;

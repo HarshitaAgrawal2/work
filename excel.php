@@ -84,6 +84,7 @@ if(isset($_POST["import"]))
   <div class="container box">
    <h3 align="center">Import Project names to database</h3><br />
    <form method="post" enctype="multipart/form-data">
+    <table><caption style="font-size:20px">Data format</caption><tr><th>Project names</th></tr></table> <br><br>
     <label>Select Excel File</label>
     <input type="file" name="excel" />
     <br />
