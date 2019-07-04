@@ -1,6 +1,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript" src="tabledit.js"></script>
-<script type="text/javascript" src="eg.js"></script>
 <?php
 $msg1="";
 $msg2="";
@@ -49,11 +48,13 @@ if(isset($_POST['submitm'])){
 
     <ul>
         <li class="li"><a href="admin.php">Admin Home</a></li>
-        <li class="li"><a href="index.php">User</a></li>
-        <li class="li"><a class="active" href="entry.php">Add User</a></li>
+        <li class="li"><a href="index.php">L+1</a></li>
+        <li class="li"><a class="active" href="entry.php">Add L/L+1</a></li>
         <li class="li" style="float:right"><a href="logout.php">Logout</a></li>
         <li class="li" style="float:right"><a ><span>You are logged in as: <?php session_start(); echo $_SESSION['admin'];?></span> </a></li>
         <li class="li"><a href="excel.php">Upload Project list</a></li>
+        <li class="li"><a href="exceluploadplus.php">Upload L+1 list</a></li>
+        <li class="li"><a href="exceluploadL.php">Upload L list</a></li>
     </ul>
     <br><br><br> <img src="logo.png" width="15%"> <br>
 <div class="admincol">
@@ -67,6 +68,7 @@ if(isset($_POST['submitm'])){
 		<label>Password</label> <div id="error_msg"><?php echo $msg3 ; ?></div>
 		<input type="password" name="password"  placeholder="Set password for L+1" value="<?php echo isset($_POST['password']) ? $_POST['password'] : '' ?>"> 
         <input type="submit" name="submit" class="btn"> <br><br>
+        <a href="exceluploadplus.php">Upload Excel file of L+1</a><br><br>
     </form>
 </div>
 <div class="admincol">
@@ -81,9 +83,10 @@ if(isset($_POST['submitm'])){
 		<input type="text" name="domain" placeholder="eg: RETAIL, TECH" value="<?php echo isset($_POST['domain']) ? $_POST['domain'] : '' ?>">
         <label >Department</label> <div id="error_msg"><?php echo $msg14 ; ?></div>
 		<input type="text" name="dept" placeholder="eg: BU2" value="<?php echo isset($_POST['dept']) ? $_POST['dept'] : '' ?>">
-        <label >Code of his L+1</label> <div id="error_msg"><?php echo $msg15 ; ?></div>
+        <label >Code of L+1</label> <div id="error_msg"><?php echo $msg15 ; ?></div>
 		<input type="text" name="code" placeholder="Type code of L+1" value="<?php echo isset($_POST['code']) ? $_POST['code'] : '' ?>">
         <input type="submit" name="submitm" class="btn"> <br><br>
+        <a href="exceluploadL.php">Upload Excel file of L</a><br><br>
     </form>
 </div>
 <div class="admincol">
@@ -138,6 +141,9 @@ if(isset($_POST['submitm'])){
         echo "Stored successfully";
     }
     if (isset($_POST["show_plus"])) {
+?>
+<script type="text/javascript" src="eg.js"></script>
+<?php
 		$select = "select * from user";
 		$status = mysqli_query($con,$select);
 		if(!$status){
@@ -151,18 +157,27 @@ if(isset($_POST['submitm'])){
         echo "</table>";
     }
     if (isset($_POST["show_minus"])) {
+?>
+
+<script type="text/javascript" src="eg3.js"></script>
+<!--
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> 
+-->     
+<?php
 		$select = "select * from lminus order by codeplus1";
 		$status = mysqli_query($con,$select);
 		if(!$status){
 		    die("Unable to load data.".mysqli_error($con));
         }
-        echo "<table><tr><th>Code</th><th>Name of L-1</th><th>DomainFunction</th><th>Dept</th><th>L+1</th></tr>";
+        echo "<table id='ldata_table'><tr><th>Code</th><th>Name of L-1</th><th>DomainFunction</th><th>Dept</th><th>L+1</th></tr>";
         while($row = mysqli_fetch_array($status,MYSQLI_NUM)) {
             echo "<tr><td>".$row[1]."</td>" ;
             echo "<td>".$row[2]."</td>" ;
             echo "<td>".$row[3]."</td>" ;
             echo "<td>".$row[4]."</td>" ;
-            echo "<td>".$row[0]."</td></tr>" ; 
+            echo "<td>".$row[0]."</td>";
+            echo "</tr>" ; 
         }
         echo "</table>";
     }

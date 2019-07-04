@@ -40,7 +40,7 @@
 <body>
 	
 	<ul>
-		<li class="li"><a class="active" href="index.php">User</a></li>
+		<li class="li"><a class="active" href="index.php">L+1</a></li>
 		<li class="li"><a  href="admin.php">Admin</a></li>
 	</ul>  <br>
 	

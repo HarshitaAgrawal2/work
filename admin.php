@@ -54,11 +54,13 @@
 
     <ul>
         <li class="li"><a class="active" href="admin.php">Admin Home</a></li>
-        <li class="li"><a href="index.php">User</a></li>
+        <li class="li"><a href="index.php">L+1</a></li>
         <li class="li" style="float:right"><a href="logout.php">Logout</a></li>
         <li class="li" style="float:right"><a ><span>You are logged in as: <?php echo $_SESSION['admin'];?></span> </a></li>
-        <li class="li"><a href="entry.php">Add User</a></li>
+        <li class="li"><a href="entry.php">Add L/L+1</a></li>
         <li class="li"><a href="excel.php">Upload Project list</a></li>
+        <li class="li"><a href="exceluploadplus.php">Upload L+1 list</a></li>
+        <li class="li"><a href="exceluploadL.php">Upload L list</a></li>
     </ul>
     <br><br><br> <img src="logo.png" width="15%"><br>
 	<form method="post" class="adminSideForm"> 

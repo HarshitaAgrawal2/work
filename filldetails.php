@@ -53,6 +53,8 @@
     }
     echo "<br><br><br> <img src='logo.png' width='15%'><br>";
     $date = $_SESSION['date'];
+    $d = date("l, F d, Y", strtotime($date));
+    echo "<h2 style='background-color:yellow; width:fit-content'>".$d."</h2>";
     $codeplus = $_SESSION['user'];
     $url = "localhost:3306";
     $user = "root";
@@ -140,7 +142,7 @@
         <li class="li"><a href="admin.php">Admin</a></li>
         <li class="li"><a href="filldetails.php" class="active">Fill Details</a></li>
         <li class="li" style="float:right"><a href="logout.php">Logout</a></li>
-        <li class="li" style="float:right"><a ><span>You are logged in as: <?php echo $_SESSION['user'];?></span> </a></li>
+        <li class="li" style="float:right; color:white"><a ><span>You are logged in as: <?php echo $_SESSION['user'];?></span> </a></li>
     </ul> 
 <div id="filldetailsform" class="col">
     <form method="post">
@@ -264,7 +266,7 @@
             method: "POST",            
             data: {get_data: 1, id: id},
             success: function (response) {   
-                
+
                 var len = response.length; 
                 console.log("Response",response);
                 var jsonpar=$.parseJSON(response);  
@@ -319,8 +321,8 @@
          </div>
          
          <div class = "modal-footer">
-            <button type = "button" class = "btn btn-default" data-dismiss = "modal">
-               OK
+            <button type = "button" class = "btn btn-default" data-dismiss = "modal" >
+               Close
             </button>
          </div>
          

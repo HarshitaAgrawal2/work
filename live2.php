@@ -21,8 +21,24 @@
         } 
 
         if($update_field && $input['inc']) {
-            $sql_query = "UPDATE project SET $update_field WHERE inc='" . $input['inc'] . "'";
-            mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
+            $inc = $input['inc'];
+            $sql = "select id, hours from project where inc='$inc'";
+            $res = mysqli_query($conn, $sql);
+            $r = mysqli_fetch_array($res,MYSQLI_NUM);
+            $id = $r[0];
+            $h = $r[1];
+            $sql = "select sum(hours) from project where id='$id'";
+            $res = mysqli_query($conn, $sql);
+            $r = mysqli_fetch_array($res,MYSQLI_NUM);
+            $sum = $r[0];
+            $hrs = $input['hours'];
+            $sum = $sum + $hrs -$h;
+            if($sum<=42.5){
+                $sql_query = "UPDATE project SET $update_field WHERE inc='" . $input['inc'] . "'";
+                mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
+            }
         }
     }
 ?>
+
+

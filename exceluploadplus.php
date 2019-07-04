@@ -15,19 +15,23 @@ if(isset($_POST["import"]))
   //include("phpexcel.php"); // Add PHPExcel Library in this code
   $objPHPExcel = PHPExcel_IOFactory::load($file); // create object of PHPExcel library by using load() method and in load method define path of selected file
 
-  $output .= "<label class='text-success'>Data Inserted</label><br /><table class='table table-bordered'><th>project Name</th>";
+  $output .= "<label class='text-success'>Data Inserted</label><br /><table class='table table-bordered'><tr><th>L+1 code</th><th>L+1 Name</th><th>Password set</th></tr>";
   foreach ($objPHPExcel->getWorksheetIterator() as $worksheet)
   {
    $highestRow = $worksheet->getHighestRow();
    for($row=2; $row<=$highestRow; $row++)
    {
     
-    $name = mysqli_real_escape_string($connect, $worksheet->getCellByColumnAndRow(0, $row)->getValue());
-    $query = "INSERT INTO projectList(namep) VALUES ('".$name."')";
+    $code = mysqli_real_escape_string($connect, $worksheet->getCellByColumnAndRow(0, $row)->getValue());
+    $Name = mysqli_real_escape_string($connect, $worksheet->getCellByColumnAndRow(1, $row)->getValue());
+    $psw = $code;
+    $query = "INSERT INTO user(username, passw, Namep) VALUES ('$code','$psw','$Name')";
     $status = mysqli_query($connect, $query);
     if($status){
         $output .= "<tr>";
-        $output .= '<td>'.$name.'</td>';
+        $output .= '<td>'.$code.'</td>';
+        $output .= '<td>'.$Name.'</td>';
+        $output .= '<td>'.$psw.'</td>';
         $output .= '</tr>';
     }
    }
@@ -76,14 +80,15 @@ if(isset($_POST["import"]))
         <li class="li" style="float:right"><a href="logout.php">Logout</a></li>
         <li class="li" style="float:right"><a ><span>You are logged in as: <?php session_start(); echo $_SESSION['admin'];?></span> </a></li>
         <li class="li"><a href="entry.php">Add L/L+1</a></li>
-        <li class="li"><a class="active" href="excel.php">Upload Project list</a></li>
-        <li class="li"><a href="exceluploadplus.php">Upload L+1 list</a></li>
+        <li class="li"><a href="excel.php">Upload Project list</a></li>
+        <li class="li"><a class="active" href="exceluploadplus.php">Upload L+1 list</a></li>
         <li class="li"><a href="exceluploadL.php">Upload L list</a></li>
     </ul>
     <br><br><br> <img src="logo.png" width="15%"><br>
   <div class="container box">
-   <h3 align="center">Import Project names to database</h3><br />
+   <h2 align="center">Import L+1 excel file to database</h2><br />
    <form method="post" enctype="multipart/form-data">
+   <table><caption>Data format</caption><tr><th>Code of L+1</th><th>Name of L+1</th></tr></table> <br><br>
     <label>Select Excel File</label>
     <input type="file" name="excel" />
     <br />
