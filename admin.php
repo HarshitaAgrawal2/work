@@ -181,13 +181,13 @@
                     die("Unable to load data.".mysqli_error($con));
                 }
                 $d = date("l, F d, Y", strtotime($date));
-                echo "<table class='hitable'><tr><th>Code of L+1</th><th>L+1 Name/data given by</th><th>Name of L</th><th>DomainFunction of L</th><th>Dept of L</th><th>".$d."</th></tr>";
+                echo "<table class='hitable'><tr><th>Code of L+1</th><th>Name of L</th><th>DomainFunction of L</th><th>Dept of L</th><th>".$d."</th></tr>";
                 $rowCount = 0; 
                 while($row = mysqli_fetch_array($status,MYSQLI_NUM)){
                     $rowCount++;
                     echo "<tr>";
                     echo "<td>".$row[1]."</td>";
-                    echo "<td>".$row[3]."</td>";
+                    //echo "<td>".$row[3]."</td>";
                     echo "<td>".$row[8]."</td>";
                     echo "<td>".$row[9]."</td>";
                     echo "<td>".$row[10]."</td>";
@@ -207,13 +207,13 @@
                     die("Unable to load data.".mysqli_error($con));
                 }
                 $d = date("l, F d, Y", strtotime($date));
-                echo "<table class='hitable'><tr><th>Code of L+1</th><th>L+1 Name/data given by</th><th>Name of L</th><th>DomainFunction of L</th><th>Dept of L</th><th>".$d."</th></tr>";
+                echo "<table class='hitable'><tr><th>Code of L+1</th><th>Name of L</th><th>DomainFunction of L</th><th>Dept of L</th><th>".$d."</th></tr>";
                 $rowCount = 0; 
                 while($row = mysqli_fetch_array($status,MYSQLI_NUM)){
                     $rowCount++;
                     echo "<tr>";
                     echo "<td>".$row[1]."</td>";
-                    echo "<td>".$row[3]."</td>";
+                    //echo "<td>".$row[3]."</td>";
                     echo "<td>".$row[8]."</td>";
                     echo "<td>".$row[9]."</td>";
                     echo "<td>".$row[10]."</td>";
@@ -233,13 +233,13 @@
                     die("Unable to load data.".mysqli_error($con));
                 }
                 $d = date("l, F d, Y", strtotime($date));
-                echo "<table class='hitable'><tr><th>Code of L+1</th><th>L+1 Name/data given by</th><th>Name of L</th><th>DomainFunction of L</th><th>Dept of L</th><th>".$d."</th></tr>";
+                echo "<table class='hitable'><tr><th>Code of L+1</th><th>Name of L</th><th>DomainFunction of L</th><th>Dept of L</th><th>".$d."</th></tr>";
                 $rowCount = 0; 
                 while($row = mysqli_fetch_array($status,MYSQLI_NUM)){
                     $rowCount++;
                     echo "<tr>";
                     echo "<td>".$row[1]."</td>";
-                    echo "<td>".$row[3]."</td>";
+                   // echo "<td>".$row[3]."</td>";
                     echo "<td>".$row[8]."</td>";
                     echo "<td>".$row[9]."</td>";
                     echo "<td>".$row[10]."</td>";

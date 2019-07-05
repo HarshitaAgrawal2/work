@@ -137,7 +137,6 @@
     <style>
         table caption{
             font-size: 20px;
-            color:#6CA82E;
         }
     </style>
 </head>

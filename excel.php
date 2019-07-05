@@ -1,5 +1,11 @@
 
 <?php
+    session_start();
+    if (isset($_SESSION["admin"])) {
+    }
+    else{
+        header("Location:adminlogin.php");
+    }
 include("Classes/PHPExcel.php");
 
 $connect = mysqli_connect("localhost", "root", "", "harshi");
@@ -74,7 +80,7 @@ if(isset($_POST["import"]))
         <li class="li"><a  href="admin.php">Admin Home</a></li>
         <li class="li"><a href="index.php">L+1</a></li>
         <li class="li" style="float:right"><a href="logout.php">Logout</a></li>
-        <li class="li" style="float:right"><a ><span>You are logged in as: <?php session_start(); echo $_SESSION['admin'];?></span> </a></li>
+        <li class="li" style="float:right"><a ><span>You are logged in as: <?php  echo $_SESSION['admin'];?></span> </a></li>
         <li class="li"><a href="entry.php">Add L/L+1</a></li>
         <li class="li"><a class="active" href="excel.php">Upload Project list</a></li>
         <li class="li"><a href="exceluploadplus.php">Upload L+1 list</a></li>
