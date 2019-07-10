@@ -12,9 +12,15 @@
      $result = mysqli_query($connection, $sql);
      $row = mysqli_fetch_array($result);
      $donehrs = $row[0];
-
+     session_start();
      $return_arr = array();
+     $date = $_SESSION['date'];
+     $d = date("l, F d, Y", strtotime($date));
      $return_arr[] = array("donehrs" => $donehrs);
+     $return_arr[] = array("date" => $d );
+     $d = date("W", strtotime($date));
+     $return_arr[] = array("week" => $d );
+
      // Getting specific customer's detail
      $sql = "SELECT * FROM project where id='$seq' ";
      $result = mysqli_query($connection, $sql);
@@ -53,8 +59,10 @@
     }
     echo "<br><br><br> <img src='logo.png' width='15%'><br>";
     $date = $_SESSION['date'];
-    $d = date("l, F d, Y", strtotime($date));
-    echo "<h4 style='background-color:yellow; width:fit-content'>".$d."</h4>";
+    $d = date("F d, Y", strtotime($date));
+    $w = date("W", strtotime($date));
+    echo "<h1 style=' width:fit-content; font-size:18px'>Week starting from ".$d."<br>Week Number of year: ".$w."</h1>";
+
     $codeplus = $_SESSION['user'];
     $url = "localhost:3306";
     $user = "root";
@@ -83,7 +91,7 @@
     }
     $codelist = array();
     $i = 0;
-    echo "<div class='col'><table id='done'><caption>Done</caption><tr><th>Code</th><th>Name</th><th >Utilization</th><th class='util'>Action</th></tr>";
+    echo "<div class='col'><table id='done'><caption>Done</caption><tr><th>Employee code</th><th>Name</th><th >Utilization</th><th class='util'>Action</th></tr>";
     while($row = mysqli_fetch_array($status,MYSQLI_NUM)){
         $codelist[$i++] = $row[1];
         $seq = $row[0];
@@ -106,7 +114,7 @@
     if(!$status){
         die("Unable to load data.".mysqli_error($con));
     }
-    echo "<div class='col'><table id='rem'><caption>Remaining</caption><tr><th>Code</th><th class='util'>Name</th></tr>";
+    echo "<div class='col'><table id='rem'><caption>Remaining</caption><tr><th>Employee code</th><th class='util'>Name</th></tr>";
     while($row = mysqli_fetch_array($status,MYSQLI_NUM)){
         $codelist[$i++] = $row[0];
         echo "<tr><td>".$row[0]."</td>";
@@ -143,17 +151,17 @@
 <body>
 	
     <ul>
-        <li class="li"><a href="index.php">Home</a></li>
+        <li class="li"><a href="index.php">Select date</a></li>
         <li class="li"><a href="admin.php">Admin</a></li>
         <li class="li"><a href="filldetails.php" class="active">Fill Details</a></li>
         <li class="li" style="float:right"><a href="logout.php">Logout</a></li>
         <li class="li" style="float:right; color:white"><a ><span>You are logged in as: <?php echo $_SESSION['nam'];?></span> </a></li>
     </ul> 
-<div id="filldetailsform" class="col">
-    <form method="post">
+<div id="filldetailsform" class="col" >
+    <form method="post" autocomplete="off">
         <h1 style="font-size: 25px;">Fill Details:</h1>
-        <label >Code</label> 
-        <input type="text" name="code" placeholder="Enter code of L-1" list="codeList" value="<?php echo isset($_POST['code']) ? $_POST['code'] : '' ?>" >
+        <label >Employee code</label> 
+        <input type="text" name="code" placeholder="Enter employee code of L" list="codeList" value="<?php echo isset($_POST['code']) ? $_POST['code'] : '' ?>" >
         <div id="error_msg"><?php echo $msg1 ; ?></div>
         <datalist id="codeList">
 <?php 
@@ -172,8 +180,8 @@
 ?>
         </select>
         <div id="error_msg"><?php echo $msg2 ; ?></div> 
-        <label>Billable Hours for a week of <?php echo $_SESSION["date"] ?></label>
-        <input type="number" name="utilization" min="0" max="42.5" value="<?php echo isset($_POST['utilization']) ? $_POST['utilization'] : '' ?>" placeholder="eg: 20 ( Expanation: 5 hrs/day * 4 days = 20 hrs/week )"  step="0.1">
+        <label>Billable Hours for a week starting on <?php $d = date("F d, Y", strtotime($date)); echo $d; ?></label>
+        <input type="number" name="utilization" min="0" max="42.5" value="<?php echo isset($_POST['utilization']) ? $_POST['utilization'] : '' ?>" placeholder="Expanation: 5 hrs/day * 4 days = 20 hrs/week "  step="0.1">
         <div id="error_msg"><?php echo $msg3 ; ?></div>
         <input type="submit" name="submit"><hr>
     </form> 
@@ -278,9 +286,18 @@
                 console.log("Response length",jsonpar.length);
                 var donehrs = jsonpar[0].donehrs;
                 var remhrs = 42.5 - donehrs;
-                var html = "<table class='project_table'><tr><th>Seq</th><th>Project</th><th>Hours</th></tr>";
+                //
+               
+     //
+                var date = jsonpar[1].date;
+                var html = "Duration: <b>1 week</b><br>Week starting from <b>"+date+"</b><br>";
                 
-                for(var i=1; i<jsonpar.length; i++){
+                var week = jsonpar[2].week;
+                html += "Week number of year: <b>"+week+"</b><br><br>";
+                
+                html += "<table class='project_table'><tr><th>Seq</th><th>Project Name</th><th>Hours build</th></tr>";
+                
+                for(var i=3; i<jsonpar.length; i++){
                     
                     var inc = jsonpar[i].inc;
                     var name = jsonpar[i].name;
@@ -326,7 +343,8 @@
          </div>
          
          <div class = "modal-footer">
-            <button type = "button" class = "btn btn-default" data-dismiss = "modal" >
+            <button type = "button" class = "btn btn-default" data-dismiss = "modal" style="width: fit-content;
+    font-size: smaller;">
                Close
             </button>
          </div>

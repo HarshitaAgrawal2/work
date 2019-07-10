@@ -32,12 +32,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Scheduler</title>
+	<title>Project</title>
 	<link type="text/css" rel="stylesheet" href="main.css" />
+	<style>
+	 #loginform {
+		 border-radius:5px;
+		 width:30%;
+		 margin-left:35%;
+	 }
+	</style>
 </head>
 <body>
 
 	<ul>
+		<li class="li"><a >Select Role: </a></li>
 		<li class="li"><a  href="index.php">L+1</a></li>
 		<li class="li"><a  class="active" href="admin.php">Admin</a></li>
 	</ul>   
@@ -47,7 +55,7 @@
 	<form method="post" id="loginform">
 		<p id="loginHeading">Admin login</p>
 		<label class="inputlabel">Username</label> 
-		<input type="text" name="username" placeholder="Type your code" class="inputfield">
+		<input type="text" name="username" placeholder="Type your username" class="inputfield">
 		<label class="inputlabel">Password</label>
 		<input type="password" name="password" class="inputfield" placeholder="Type your password"> 
 		<input type="submit" name="loginSubmit" value="Login" id="loginbtn">

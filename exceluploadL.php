@@ -97,7 +97,7 @@ if(isset($_POST["import"]))
     <br><br><br> <img src="logo.png" width="15%"><br>
   <div class="container box">
    <h2 align="center">Import L excel file to database</h2><br />
-   <table><caption>Data format</caption><tr><th>code of L</th><th>Name of L</th><th>Domain Function</th><th>Department</th><th>Code of L+1</th></tr></table> <br><br>
+   <table><caption>Data format</caption><tr><th>Employee code of L</th><th>Name of L</th><th>Domain Function</th><th>Department</th><th>Employee code of L+1</th></tr></table> <br><br>
    <form method="post" enctype="multipart/form-data">
     <label>Select Excel File</label>
     <input type="file" name="excel" />

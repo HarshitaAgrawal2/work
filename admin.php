@@ -49,6 +49,15 @@
         border: 2px solid black;
         padding: 10px;
     }
+    .adminSideForm{
+        border-radius:5px;
+        width:30%;
+        margin-left:35%;
+    }
+    .adminSideForm input[type="submit"]{
+        font-size:15px;
+        width:fit-content;
+    }
 </style>
 <body>	
 
@@ -63,15 +72,15 @@
         <li class="li"><a href="exceluploadL.php">Upload L list</a></li>
     </ul>
     <br><br><br> <img src="logo.png" width="15%"><br>
-	<form method="post" class="adminSideForm"> 
+	<form method="post" class="adminSideForm" style="font-size:15px"> 
         <br>
         <label >Date (From)</label> 
         <input type="date" name="date" value="<?php echo isset($_POST['date']) ? $_POST['date'] : '' ?>">
         <label >Date (To)</label> 
         <input type="date" name="todate" value="<?php echo isset($_POST['todate']) ? $_POST['todate'] : '' ?>">
-        <label>Utilization below ?:</label>
+        <label>Utilization below :</label>
         <input type="number" min="0" max="100" name="belowfilter" placeholder="100" >
-        <label>Utilization above ?:</label>
+        <label>Utilization above :</label>
         <input type="number" min="0" max="100" name="abovefilter" placeholder="0">
         <label >Project</label> 
         <select name="projectfilter">
@@ -85,12 +94,13 @@
         <label >Domain Function</label> 
         <select name="domainfilter">
             <option value="" selected>Select</option>
-<?php 
+<?php
                 for($i=0; $i<count($domainlist); $i++){
                     echo "<option>".$domainlist[$i]."</option>";
                 }
 ?>
-        </select> <br>
+
+        </select> <br><br>
         <input type="submit" name="show_details" class="btn" value="Generate Report">
 	</form> <br>
 </body>
@@ -132,7 +142,7 @@
                 }
                 $d = date("l, F d, Y", strtotime($date));
                 if($tableCount==0){
-                    echo "<table class='hitable'><tr><th>Code of L+1</th><th>L+1 Name/data given by</th><th>Name of L</th><th>DomainFunction of L</th><th>Dept of L</th><th>".$d."</th></tr>";
+                    echo "<table class='hitable'><tr><th>Employee code of L+1</th><th>L+1 Name/data given by</th><th>Name of L</th><th>DomainFunction of L</th><th>Dept of L</th><th>".$d."</th></tr>";
                     $rowCount = 0; 
                     while($row = mysqli_fetch_array($status,MYSQLI_NUM)){
                         $rowCount++;
@@ -181,7 +191,7 @@
                     die("Unable to load data.".mysqli_error($con));
                 }
                 $d = date("l, F d, Y", strtotime($date));
-                echo "<table class='hitable'><tr><th>Code of L+1</th><th>Name of L</th><th>DomainFunction of L</th><th>Dept of L</th><th>".$d."</th></tr>";
+                echo "<table class='hitable'><tr><th>Employee code of L+1</th><th>Name of L</th><th>DomainFunction of L</th><th>Dept of L</th><th>".$d."</th></tr>";
                 $rowCount = 0; 
                 while($row = mysqli_fetch_array($status,MYSQLI_NUM)){
                     $rowCount++;
@@ -207,7 +217,7 @@
                     die("Unable to load data.".mysqli_error($con));
                 }
                 $d = date("l, F d, Y", strtotime($date));
-                echo "<table class='hitable'><tr><th>Code of L+1</th><th>Name of L</th><th>DomainFunction of L</th><th>Dept of L</th><th>".$d."</th></tr>";
+                echo "<table class='hitable'><tr><th>Employee code of L+1</th><th>Name of L</th><th>DomainFunction of L</th><th>Dept of L</th><th>".$d."</th></tr>";
                 $rowCount = 0; 
                 while($row = mysqli_fetch_array($status,MYSQLI_NUM)){
                     $rowCount++;
@@ -233,7 +243,7 @@
                     die("Unable to load data.".mysqli_error($con));
                 }
                 $d = date("l, F d, Y", strtotime($date));
-                echo "<table class='hitable'><tr><th>Code of L+1</th><th>Name of L</th><th>DomainFunction of L</th><th>Dept of L</th><th>".$d."</th></tr>";
+                echo "<table class='hitable'><tr><th>Employee code of L+1</th><th>Name of L</th><th>DomainFunction of L</th><th>Dept of L</th><th>".$d."</th></tr>";
                 $rowCount = 0; 
                 while($row = mysqli_fetch_array($status,MYSQLI_NUM)){
                     $rowCount++;
