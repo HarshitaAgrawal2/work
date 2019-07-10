@@ -67,8 +67,8 @@ if(isset($_POST['submitm'])){
 	<form method="post">
       
 		<h1>Add L+1:</h1>
-        <label >Code</label>  <div id="error_msg"><?php echo $msg1 ; ?></div>
-		<input type="text" name="codep" placeholder="Type code of L+1" value="<?php echo isset($_POST['codep']) ? $_POST['codep'] : '' ?>">
+        <label >Employee code</label>  <div id="error_msg"><?php echo $msg1 ; ?></div>
+		<input type="text" name="codep" placeholder="Type Employee code of L+1" value="<?php echo isset($_POST['codep']) ? $_POST['codep'] : '' ?>">
 		<label >Name</label>  <div id="error_msg"><?php echo $msg2 ; ?></div>
 		<input type="text" name="name" placeholder="Type name of L+1" value="<?php echo isset($_POST['name']) ? $_POST['name'] : '' ?>">
 		<label>Password</label> <div id="error_msg"><?php echo $msg3 ; ?></div>
@@ -81,16 +81,16 @@ if(isset($_POST['submitm'])){
   
 	<form method="post">
         <h1>Add L:</h1>
-        <label >Code</label> <div id="error_msg"><?php echo $msg11 ; ?></div>
-		<input type="text" name="codem" placeholder="Type code of L-1" value="<?php echo isset($_POST['codem']) ? $_POST['codem'] : '' ?>">
+        <label >Employee code</label> <div id="error_msg"><?php echo $msg11 ; ?></div>
+		<input type="text" name="codem" placeholder="Type Employee code of L" value="<?php echo isset($_POST['codem']) ? $_POST['codem'] : '' ?>">
 		<label >Name</label> <div id="error_msg"><?php echo $msg12 ; ?></div>
-		<input type="text" name="namem" placeholder="Type name of L-1" value="<?php echo isset($_POST['namem']) ? $_POST['namem'] : '' ?>">
+		<input type="text" name="namem" placeholder="Type name of L" value="<?php echo isset($_POST['namem']) ? $_POST['namem'] : '' ?>">
         <label >Domain Function</label> <div id="error_msg"><?php echo $msg13 ; ?></div>
 		<input type="text" name="domain" placeholder="eg: RETAIL, TECH" value="<?php echo isset($_POST['domain']) ? $_POST['domain'] : '' ?>">
         <label >Department</label> <div id="error_msg"><?php echo $msg14 ; ?></div>
 		<input type="text" name="dept" placeholder="eg: BU2" value="<?php echo isset($_POST['dept']) ? $_POST['dept'] : '' ?>">
-        <label >Code of L+1</label> <div id="error_msg"><?php echo $msg15 ; ?></div>
-		<input type="text" name="code" placeholder="Type code of L+1" value="<?php echo isset($_POST['code']) ? $_POST['code'] : '' ?>">
+        <label >Employee code of L+1</label> <div id="error_msg"><?php echo $msg15 ; ?></div>
+		<input type="text" name="code" placeholder="Type Employee code of L+1" value="<?php echo isset($_POST['code']) ? $_POST['code'] : '' ?>">
         <input type="submit" name="submitm" class="btn"> <br><br>
         <a href="exceluploadL.php">Upload Excel file of L</a><br><br>
     </form>
@@ -155,7 +155,7 @@ if(isset($_POST['submitm'])){
 		if(!$status){
 		    die("Unable to load data.".mysqli_error($con));
         }
-        echo "<table id='data_table'><tr><th>Code</th><th>Name of L+1</th></tr>";
+        echo "<table id='data_table'><caption>L+1 Details</caption><tr><th>Employee code of L+1</th><th>Name of L+1</th></tr>";
         while($row = mysqli_fetch_assoc($status)) {
             echo "<tr id=". $row['username'] ."><td>".$row['username']."</td>" ;
             echo "<td>".$row['Namep']."</td></tr>" ; 
@@ -176,7 +176,7 @@ if(isset($_POST['submitm'])){
 		if(!$status){
 		    die("Unable to load data.".mysqli_error($con));
         }
-        echo "<table id='ldata_table'><tr><th>Code</th><th>Name of L</th><th>DomainFunction</th><th>Dept</th><th>L+1</th></tr>";
+        echo "<table id='ldata_table'><caption>L Details</caption><tr><th>Employee code of L</th><th>Name of L</th><th>DomainFunction</th><th>Dept</th><th>Employee code L+1</th></tr>";
         while($row = mysqli_fetch_array($status,MYSQLI_NUM)) {
             echo "<tr><td>".$row[1]."</td>" ;
             echo "<td>".$row[2]."</td>" ;
@@ -185,6 +185,6 @@ if(isset($_POST['submitm'])){
             echo "<td>".$row[0]."</td>";
             echo "</tr>" ; 
         }
-        echo "</table>";
+        echo "</table><br><br>";
     }
 ?>
