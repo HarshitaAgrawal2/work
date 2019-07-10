@@ -58,6 +58,9 @@
         font-size:15px;
         width:fit-content;
     }
+    table td{
+        text-align:left;
+    }
 </style>
 <body>	
 
@@ -79,9 +82,9 @@
         <label >Date (To)</label> 
         <input type="date" name="todate" value="<?php echo isset($_POST['todate']) ? $_POST['todate'] : '' ?>">
         <label>Utilization below :</label>
-        <input type="number" min="0" max="100" name="belowfilter" placeholder="100" >
+        <input type="number" min="0" max="100" name="belowfilter" >
         <label>Utilization above :</label>
-        <input type="number" min="0" max="100" name="abovefilter" placeholder="0">
+        <input type="number" min="0" max="100" name="abovefilter" >
         <label >Project</label> 
         <select name="projectfilter">
             <option value="" selected>Select</option>
@@ -104,6 +107,12 @@
         <input type="submit" name="show_details" class="btn" value="Generate Report">
 	</form> <br>
 </body>
+<style>
+table th{
+    height: 80px;
+    width: 100px;
+}
+</style>
 </html>
 <?php
     if (isset($_POST["show_details"])) {
@@ -142,7 +151,7 @@
                 }
                 $d = date("l, F d, Y", strtotime($date));
                 if($tableCount==0){
-                    echo "<table class='hitable'><tr><th>Employee code of L+1</th><th>L+1 Name/data given by</th><th>Name of L</th><th>DomainFunction of L</th><th>Dept of L</th><th>".$d."</th></tr>";
+                    echo "<table class='hitable'><tr><th>Employee code of L+1</th><th>L+1 Name/data given by</th><th>Name of L</th><th>DomainFunction of L</th><th>Dept of L</th><th wrap>".$d."</th></tr>";
                     $rowCount = 0; 
                     while($row = mysqli_fetch_array($status,MYSQLI_NUM)){
                         $rowCount++;
@@ -152,7 +161,7 @@
                         echo "<td>".$row[3]."</td>";
                         echo "<td>".$row[4]."</td>";
                         if($row[10]==""){
-                            echo "<td style='background-color:red;'>--</td></tr>"; 
+                            echo "<td style='background-color:red;'>Not filled</td></tr>"; 
                         }
                         else{
                             echo "<td>".$row[10]." %</td></tr>"; 
@@ -167,7 +176,7 @@
                         $rowCount++;
                         echo "<tr>";
                         if($row[10]==""){
-                            echo "<td style='background-color:red;'>--</td></tr>"; 
+                            echo "<td style='background-color:red;'>Not filled</td></tr>"; 
                         }
                         else{
                             echo "<td>".$row[10]." %</td></tr>"; 
@@ -265,7 +274,7 @@
             if(!$status){
                 die("Unable to load data.".mysqli_error($con));
             }
-            echo "<table class='hitable'><tr><th>Average utilization</th></tr>";
+            echo "<table class='hitable'><tr><th>Average utilization of a month</th></tr>";
             $rowCount = 0; 
             while($row = mysqli_fetch_array($status,MYSQLI_NUM)){
                 $rowCount++;
