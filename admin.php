@@ -141,6 +141,8 @@ table th{
         }
         $tableCount = 0;
         $count = 0;
+        $month_arr = array();
+        $avgflag=0;
         while($dr = mysqli_fetch_array($st,MYSQLI_NUM)){
             $date = $dr[0];
             if($bel=="" && $ab=="" && $proj=="" && $dom==""){
@@ -150,8 +152,48 @@ table th{
                     die("Unable to load data.".mysqli_error($con));
                 }
                 $d = date("l, F d, Y", strtotime($date));
+                $mon = date("m y", strtotime($date));
+                //echo $mon;
+                if(in_array($mon, $month_arr)){
+                    $tableCount++;
+                    $avgflag=0;
+                }
+                else{
+                    if($tableCount==0){
+                        $avgflag=0;
+                        $avgstart = $date;
+                        //echo "start: ".$avgstart;
+                    }
+                    else{
+                        $avgend = $date;
+                        //echo "end: ".$avgend;
+                        $avgflag=1;
+                    }
+                    $tableCount = 0;
+                    array_push($month_arr, $mon);
+                }
+                if($bel=="" && $ab=="" && $proj=="" && $dom=="" && $avgflag==1){
+                    $selectavg = "select round(avg(utilization),2) from lminus as A left join (select * from details where wdate between '$avgstart' and '$avgend') as B on A.codeplus1=B.codeLplus1 and A.codeminus1=B.codeminus left join user on user.username = codeplus1 group by A.codeplus1, A.codeminus1 order by A.codeplus1, A.codeminus1";
+                    $avg_st = mysqli_query($con,$selectavg);
+                    if(!$avg_st){
+                        die("Unable to load data.".mysqli_error($con));
+                    }
+                    echo "<table class='hitable'><tr><th>Average utilization of a month</th></tr>";
+                    $rowCount = 0; 
+                    while($a = mysqli_fetch_array($avg_st,MYSQLI_NUM)){
+                        $rowCount++;
+                        echo "<tr>";
+                        if($a[0]==""){
+                            echo "<td style='background-color:red;'>--</td></tr>"; 
+                        }
+                        else{
+                            echo "<td>".$a[0]." %</td></tr>"; 
+                        }
+                    }
+                    echo "</table>";
+                }
                 if($tableCount==0){
-                    echo "<table class='hitable'><tr><th>Employee code of L+1</th><th>L+1 Name/data given by</th><th>Name of L</th><th>DomainFunction of L</th><th>Dept of L</th><th wrap>".$d."</th></tr>";
+                    echo "<br><br><table class='hitable'><tr><th>Employee code of L+1</th><th>L+1 Name/data given by</th><th>Name of L</th><th>DomainFunction of L</th><th>Dept of L</th><th wrap>".$d."</th></tr>";
                     $rowCount = 0; 
                     while($row = mysqli_fetch_array($status,MYSQLI_NUM)){
                         $rowCount++;
@@ -180,30 +222,6 @@ table th{
                         }
                         else{
                             echo "<td>".$row[10]." %</td></tr>"; 
-                        }
-                    }
-                    echo "</table>";
-                }
-                $tableCount++;
-                //if($tableCount==5){
-                    //$tableCount=0;
-                //}
-                if($bel=="" && $ab=="" && $proj=="" && $dom==""){
-                    $select = "select round(avg(utilization),2) from lminus as A left join (select * from details where wdate between '$start' and '$todate') as B on A.codeplus1=B.codeLplus1 and A.codeminus1=B.codeminus left join user on user.username = codeplus1 group by A.codeplus1, A.codeminus1 order by A.codeplus1, A.codeminus1";
-                    $status = mysqli_query($con,$select);
-                    if(!$status){
-                        die("Unable to load data.".mysqli_error($con));
-                    }
-                    echo "<table class='hitable'><tr><th>Average utilization of a month</th></tr>";
-                    $rowCount = 0; 
-                    while($row = mysqli_fetch_array($status,MYSQLI_NUM)){
-                        $rowCount++;
-                        echo "<tr>";
-                        if($row[0]==""){
-                            echo "<td style='background-color:red;'>--</td></tr>"; 
-                        }
-                        else{
-                            echo "<td>".$row[0]." %</td></tr>"; 
                         }
                     }
                     echo "</table>";

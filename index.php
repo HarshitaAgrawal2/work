@@ -36,7 +36,8 @@
 	<title>Project</title>
 	<link type="text/css" rel="stylesheet" href="main.css" />
 </head>
-<body>	
+<body>
+<!--	
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -60,7 +61,7 @@
             minDate: '-6d'
         });
     });
-</script>
+</script>-->
 <style>
 #datepicker{
     border: 1px solid teal;
@@ -79,7 +80,7 @@
 	<form method="post" class="userSideForm"  style="border-radius:5px; width:40%" autocomplete="off">
 		<h1 style="font-size:15px">Select starting date of week for which you want to forecast utilization of your Ls.:</h1>
         <label style="font-size:15px" >Date: </label>
-        <input name="date" style="width:100%;" id="datepicker" readonly="readonly"> <br> 
+        <input type="date" name="date" style="width:40%;" id="datepicker"> <br> 
         <input type="submit" name="submit" value="Next" class="btn" style="font-size:15px">
         <div id="error_msg"><?php echo $msg ; ?></div>
 	</form> 
