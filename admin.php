@@ -134,6 +134,7 @@ table th{
         if($date=="" || $todate==""){
             die( '<div style="color:red; text-align:center ; font-size:20px">* Select date range</div>');
         }
+        
         $sql = "select wdate from details where wdate >= '$date' and wdate <= '$todate' group by wdate";
         $st = mysqli_query($con,$sql);
         if(!$st){
@@ -172,7 +173,7 @@ table th{
                     $tableCount = 0;
                     array_push($month_arr, $mon);
                 }
-                if($bel=="" && $ab=="" && $proj=="" && $dom=="" && $avgflag==1){
+                /*if($bel=="" && $ab=="" && $proj=="" && $dom=="" && $avgflag==1){
                     $selectavg = "select round(avg(utilization),2) from lminus as A left join (select * from details where wdate between '$avgstart' and '$avgend') as B on A.codeplus1=B.codeLplus1 and A.codeminus1=B.codeminus left join user on user.username = codeplus1 group by A.codeplus1, A.codeminus1 order by A.codeplus1, A.codeminus1";
                     $avg_st = mysqli_query($con,$selectavg);
                     if(!$avg_st){
@@ -191,7 +192,7 @@ table th{
                         }
                     }
                     echo "</table>";
-                }
+                }*/
                 if($tableCount==0){
                     echo "<br><br><table class='hitable'><tr><th>Employee code of L+1</th><th>L+1 Name/data given by</th><th>Name of L</th><th>DomainFunction of L</th><th>Dept of L</th><th wrap>".$d."</th></tr>";
                     $rowCount = 0; 
